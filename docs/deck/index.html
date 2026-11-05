@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="es-PY">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Galesh OS — Pitch Deck 2026</title>
+  <meta name="description" content="Pitch deck 2026 de Galesh OS, sistema operativo móvil basado en AOSP 14, desarrollado en Paraguay.">
+  <link rel="icon" type="image/png" sizes="64x64" href="../../assets/favicon-64.png">
+  <style>
+    /* Pitch deck de Galesh OS. Fuente editable del PDF docs/Galesh_OS_Pitch_Deck_2026.pdf (16:9, 1280×720 px = 960×540 pt).
+       Exportar: google-chrome --headless=new --print-to-pdf=... --no-pdf-header-footer docs/deck/index.html
+       Mismo estilo que la página: Sora (títulos) + DM Sans, vidrio, fondo azul líquido. Tema oscuro fijo. */
+    @font-face{font-family:Sora;font-weight:400;src:url(../../assets/fonts/Sora-400.woff) format("woff")}
+    @font-face{font-family:Sora;font-weight:600;src:url(../../assets/fonts/Sora-600.woff) format("woff")}
+    @font-face{font-family:"DM Sans";font-weight:400;src:url(../../assets/fonts/DMSans-400.woff) format("woff")}
+    @font-face{font-family:"DM Sans";font-weight:500;src:url(../../assets/fonts/DMSans-500.woff) format("woff")}
+    @font-face{font-family:"DM Sans";font-weight:600;src:url(../../assets/fonts/DMSans-600.woff) format("woff")}
+    :root{
+      --bg:#070C1E;--text:#EAF1FF;--body:#D5E0F5;--muted:#AEBBD6;--soft:#93A2C2;--accent:#8FC8FF;
+      --line:rgba(200,215,255,.12);--line-strong:rgba(143,200,255,.32);
+      --glass:linear-gradient(180deg,rgba(30,42,80,.58) 0%,rgba(14,20,42,.64) 100%);
+      --glass-strong:linear-gradient(180deg,rgba(34,48,92,.70) 0%,rgba(16,23,48,.76) 100%);
+      --glass-border:rgba(200,215,255,.14);
+      --brand:linear-gradient(135deg,#4FD8F0 0%,#2F7BFF 55%,#2B3FE8 100%);
+      --hero-grad:linear-gradient(95deg,#B8F2FF,#6FB4FF 45%,#9C9BFF);
+      --pill:rgba(143,200,255,.14);--pill-text:#B8DDFF;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;background:#03060F}
+    body{font-family:"DM Sans",system-ui,sans-serif;color:var(--body);line-height:1.5;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+    .deck{display:flex;flex-direction:column;align-items:center;gap:24px;padding:24px 16px}
+    .frame{width:min(1280px,100vw - 32px);aspect-ratio:16/9;position:relative;overflow:hidden;border-radius:12px;box-shadow:0 20px 60px -20px rgba(0,0,0,.8)}
+    .slide{position:absolute;left:0;top:0;width:1280px;height:720px;overflow:hidden;background:var(--bg);transform-origin:0 0;padding:64px 72px 56px;display:flex;flex-direction:column}
+    .liquid{position:absolute;inset:0;z-index:0;overflow:hidden;background:linear-gradient(180deg,#070C1E 0%,#081433 55%,#060B1C 100%)}
+    .blob{position:absolute;width:900px;height:900px;border-radius:50%}
+    .b1{left:-320px;top:-480px;background:radial-gradient(circle,rgba(120,170,255,.26) 0%,transparent 60%)}
+    .b2{right:-380px;top:-300px;background:radial-gradient(circle,rgba(150,120,255,.34) 0%,transparent 62%)}
+    .b3{left:-420px;bottom:-520px;background:radial-gradient(circle,rgba(47,91,255,.45) 0%,transparent 62%)}
+    .b4{right:-300px;bottom:-460px;background:radial-gradient(circle,rgba(79,216,240,.18) 0%,transparent 62%)}
+    .slide>*:not(.liquid){position:relative;z-index:1}
+    h1,h2,h3,.kicker,.num,.foot b,.wm-t{font-family:Sora,system-ui,sans-serif;font-weight:600;letter-spacing:-.01em}
+    h1,h2,h3,p{margin:0}
+    h1{font-size:50px;line-height:1.1;color:var(--text)}
+    h2{font-size:46px;line-height:1.12;color:var(--text);max-width:1060px;margin-bottom:16px}
+    h3{font-size:22px;color:var(--text);margin-bottom:8px}
+    .kicker{font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--accent);margin-bottom:14px}
+    .intro{font-size:19px;color:var(--muted);max-width:1000px;margin-bottom:30px}
+    .grid{display:grid;gap:18px}
+    .g2{grid-template-columns:repeat(2,1fr)}.g3{grid-template-columns:repeat(3,1fr)}.g4{grid-template-columns:repeat(4,1fr)}.g5{grid-template-columns:repeat(5,1fr)}
+    .g5 .card{min-height:0;padding:20px 20px}.g5 .card h3{font-size:18px}.g5 .card p{font-size:14.5px}
+    .card{min-height:150px;padding:26px 28px;border-radius:20px;background:var(--glass);border:1px solid var(--glass-border);box-shadow:inset 0 1px 0 rgba(255,255,255,.10)}
+    .card p{font-size:16.5px;color:var(--muted)}
+    .card.strong{background:var(--glass-strong);border-color:var(--line-strong)}
+    .num{display:inline-block;font-size:12px;letter-spacing:.14em;color:var(--accent);background:var(--pill);padding:4px 10px;border-radius:999px;margin-bottom:10px}
+    .label{font-size:12px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:8px}
+    .note{margin-top:20px;padding:18px 24px;border-radius:16px;background:var(--pill);color:var(--text);font-size:17px}
+    .pills{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
+    .pill{font-size:15px;font-weight:600;padding:10px 16px;border-radius:999px;background:rgba(7,12,30,.75);color:#EAF1FF;border:1px solid var(--line-strong)}
+    .gradient{background:var(--hero-grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+    .foot{margin-top:auto;padding-top:22px;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--soft);display:flex;justify-content:space-between}
+    ul{margin:0;padding:0;list-style:none}
+    li{position:relative;padding-left:28px;font-size:18px;color:var(--body);margin-bottom:18px}
+    li::before{content:"";position:absolute;left:0;top:9px;width:12px;height:12px;border-radius:50%;background:var(--brand)}
+    .flow .card{position:relative}
+    .flow .card::after{content:"→";position:absolute;right:-17px;top:50%;transform:translateY(-50%);color:var(--accent);font-size:22px;font-weight:600}
+    .flow .card:last-child::after{content:none}
+    .step span{display:block;font-size:12px;letter-spacing:.14em;color:var(--accent);font-weight:600;margin-bottom:6px}
+    /* portada y contacto */
+    .cover{align-items:center;text-align:center;justify-content:center;padding-top:40px}
+    .logo-img{display:block;width:300px;height:300px;margin:0 auto 4px}
+    .cover h1{font-size:56px;max-width:1000px;margin:18px auto 16px}
+    .cover .sub{font-size:19px;color:var(--muted)}
+    .cover .meta{margin-top:auto;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--soft)}
+    .contact{display:grid;grid-template-columns:1.2fr 1fr;align-items:center;gap:40px;flex:1}
+    .contact h2{font-size:52px}
+    .contact .name{font-size:22px;color:var(--text);font-weight:600;margin:18px 0 4px}
+    .contact .role{color:var(--muted);margin-bottom:24px}
+    .contact .logo-img{width:330px;height:330px}
+    .cta{display:flex;flex-direction:column;gap:14px;justify-content:center;flex:1}
+    .cta h2{font-size:58px;max-width:900px}
+    .cta .liquid{background:linear-gradient(135deg,#4FD8F0 0%,#2F7BFF 60%,#2B3FE8 100%)}
+    .cta h2,.cta .kicker{color:#06102A}
+    .cta .pill{background:rgba(6,16,42,.9);border-color:transparent}
+    .cta .foot{color:rgba(6,16,42,.75)}
+    .sweep{display:none}
+    @media (max-width:700px){.deck{padding:12px 8px;gap:12px}.frame{border-radius:8px}}
+    @page{size:1280px 720px;margin:0}
+    @media print{
+      html,body{background:#000}
+      .deck{display:block;padding:0}
+      .frame{width:1280px;height:720px;aspect-ratio:auto;border-radius:0;box-shadow:none;overflow:visible;break-after:page;page-break-after:always}
+      .frame:last-child{break-after:auto;page-break-after:auto}
+      .slide{transform:none!important}
+      .gradient{background:none;color:#A9D4FF}
+      .cta .gradient{color:#06102A}
+    }
+  </style>
+</head>
+<body>
+<div class="deck">
+
+<div class="frame"><section class="slide cover" aria-label="Portada">
+  <div class="liquid" aria-hidden="true"><div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div><div class="blob b4"></div></div>
+  <img class="logo-img" src="../../assets/logo-640.png" width="640" height="640" alt="Logotipo de Galesh OS: flor de ñandutí y el nombre Galesh OS">
+  <h1>Rendimiento <span class="gradient">sin compromisos</span> y privacidad <span class="gradient">por diseño</span></h1>
+  <p class="sub">Sistema operativo móvil basado en AOSP 14 · Desarrollado en Paraguay</p>
+  <p class="meta">Pitch Deck 2026 · Beta pública prevista para 2027</p>
+</section></div>
+
+<div class="frame"><section class="slide" aria-label="01 El problema">
+  <div class="liquid" aria-hidden="true"><div class="blob b2"></div><div class="blob b3"></div></div>
+  <div class="kicker">01 · El problema</div>
+  <h2>El teléfono carga con capas que el usuario no eligió</h2>
+  <div class="grid g3" style="margin-top:18px">
+    <div class="card"><h3>Capas pesadas</h3><p>Aplicaciones y servicios preinstalados que el usuario no eligió y que consumen memoria, batería y datos.</p></div>
+    <div class="card"><h3>Rendimiento irregular</h3><p>La fluidez y la autonomía dependen de cada fabricante, con ajustes dispersos u ocultos.</p></div>
+    <div class="card"><h3>Privacidad opaca</h3><p>Servicios del sistema con más privilegios de los necesarios y poco control real para el usuario.</p></div>
+  </div>
+  <div class="foot"><span>Galesh OS · Pitch Deck 2026</span><span>02</span></div>
+</section></div>
+
+<div class="frame"><section class="slide" aria-label="02 La propuesta">
+  <div class="liquid" aria-hidden="true"><div class="blob b1"></div><div class="blob b4"></div></div>
+  <div class="kicker">02 · La propuesta</div>
+  <h2>Funciones propias, integradas en el sistema</h2>
+  <p class="intro">Compatible con las aplicaciones Android, con herramientas de rendimiento, batería y privacidad integradas en el propio sistema, no como apps añadidas.</p>
+  <div class="grid g3">
+    <div class="card"><h3>Rendimiento</h3><p>Game Turbo y el clasificador de hardware adaptan los perfiles al equipo y a cada juego.</p></div>
+    <div class="card"><h3>Batería</h3><p>Battery Guard muestra y gestiona el estado de protección de la batería desde el sistema.</p></div>
+    <div class="card"><h3>Seguridad</h3><p>Servicios sin root, SELinux de mínimo privilegio y acceso solo con permisos por firma.</p></div>
+  </div>
+  <div class="foot"><span>Galesh OS · Pitch Deck 2026</span><span>03</span></div>
+</section></div>
+
+<div class="frame"><section class="slide" aria-label="03 Lo que ya funciona">
+  <div class="liquid" aria-hidden="true"><div class="blob b2"></div><div class="blob b3"></div></div>
+  <div class="kicker">03 · Lo que ya funciona</div>
+  <h2><span class="gradient">10 de 22</span> módulos ya validados y congelados</h2>
+  <div class="grid g5" style="margin-top:14px">
+    <div class="card"><h3>Control Center</h3><p>Panel central de rendimiento, batería y modos.</p></div>
+    <div class="card"><h3>Game Turbo</h3><p>Perfil de juego que termina solo al cerrar el juego.</p></div>
+    <div class="card"><h3>Battery Guard</h3><p>Protección de la batería integrada en el sistema.</p></div>
+    <div class="card"><h3>System Control</h3><p>Servicio central del sistema, sin privilegios de root.</p></div>
+    <div class="card"><h3>AHC</h3><p>Clasificador de hardware que adapta los perfiles al equipo.</p></div>
+    <div class="card"><h3>Motor ACE</h3><p>Motor central propio (Advanced Core Engine).</p></div>
+    <div class="card"><h3>Touch &amp; Connect</h3><p>Servicio de emparejamiento al tocar dispositivos.</p></div>
+    <div class="card"><h3>Quari Store</h3><p>Tienda con catálogo firmado, versión mínima.</p></div>
+    <div class="card"><h3>Inicio</h3><p>Pantalla de inicio propia con el concepto visual.</p></div>
+    <div class="card"><h3>Identidad de arranque</h3><p>Logo y animación de arranque propios.</p></div>
+  </div>
+  <p class="intro" style="margin:22px 0 0;font-size:15px">Validados en emulador sobre AOSP 14: cada módulo superó compilación, pruebas en ejecución y congelado con evidencia.</p>
+  <div class="foot"><span>Galesh OS · Pitch Deck 2026</span><span>04</span></div>
+</section></div>
+
+<div class="frame"><section class="slide" aria-label="04 Arquitectura">
+  <div class="liquid" aria-hidden="true"><div class="blob b1"></div><div class="blob b3"></div></div>
+  <div class="kicker">04 · Arquitectura</div>
+  <h2>Cada función, un servicio aislado y sin root</h2>
+  <div class="grid g4 flow" style="margin-top:18px">
+    <div class="card"><h3>Apps e interfaz</h3><p>Control Center, Inicio, Quari Store y apps del sistema.</p></div>
+    <div class="card"><h3>AIDL / Binder</h3><p>Acceso solo con permiso por firma; cada método verifica a quien llama.</p></div>
+    <div class="card"><h3>Servicios Galesh</h3><p>System Control, Game Turbo, Battery Guard: sin root, un proceso por servicio.</p></div>
+    <div class="card"><h3>Sistema y hardware</h3><p>Kernel, sensores y recursos del equipo.</p></div>
+  </div>
+  <p class="note"><strong>SELinux de mínimo privilegio en todo el recorrido:</strong> cada servicio accede solo a lo que necesita, sin modos permisivos.</p>
+  <div class="foot"><span>Galesh OS · Pitch Deck 2026</span><span>05</span></div>
+</section></div>
+
+<div class="frame"><section class="slide" aria-label="05 Cómo lo construimos">
+  <div class="liquid" aria-hidden="true"><div class="blob b2"></div><div class="blob b4"></div></div>
+  <div class="kicker">05 · Cómo lo construimos</div>
+  <h2>Ingeniería con evidencia en cada paso</h2>
+  <div class="grid g5" style="margin-top:18px">
+    <div class="card step"><span>01</span><h3>Auditar</h3><p>Revisar el estado real antes de tocar nada.</p></div>
+    <div class="card step"><span>02</span><h3>Modificar</h3><p>El cambio mínimo, en el componente correcto.</p></div>
+    <div class="card step"><span>03</span><h3>Compilar</h3><p>Imagen completa del sistema, sin errores.</p></div>
+    <div class="card step"><span>04</span><h3>Validar</h3><p>Pruebas en ejecución con criterios fijados de antemano.</p></div>
+    <div class="card step"><span>05</span><h3>Congelar</h3><p>Versión verificada con sumas de control.</p></div>
+  </div>
+  <div class="grid g3" style="margin-top:16px">
+    <p class="note" style="margin:0">Cada módulo supera un gate de pruebas antes de cerrarse.</p>
+    <p class="note" style="margin:0">Las versiones congeladas se verifican automáticamente.</p>
+    <p class="note" style="margin:0">Lo incompleto queda desactivado hasta validarse.</p>
+  </div>
+  <div class="foot"><span>Galesh OS · Pitch Deck 2026</span><span>06</span></div>
+</section></div>
+
+<div class="frame"><section class="slide" aria-label="06 Quari Store">
+  <div class="liquid" aria-hidden="true"><div class="blob b1"></div><div class="blob b3"></div></div>
+  <div class="kicker">06 · Quari Store</div>
+  <h2>Una tienda curada y verificable</h2>
+  <div class="grid" style="grid-template-columns:1.5fr 1fr;margin-top:18px;align-items:start">
+    <ul>
+      <li>Catálogo firmado digitalmente: cualquier alteración se detecta antes de instalar.</li>
+      <li>Apps propias y de código abierto, descargadas de su fuente oficial con el certificado del desarrollador verificado.</li>
+      <li>Cada instalación pide la confirmación del usuario; la tienda no tiene permisos especiales.</li>
+      <li>La compatibilidad opcional con microG llega después de la Beta.</li>
+    </ul>
+    <div class="card strong"><div class="label">Estado</div><h3>En desarrollo</h3><p>Versión inicial incluida en la Beta 1.0, prevista para 2027.</p></div>
+  </div>
+  <div class="foot"><span>Galesh OS · Pitch Deck 2026</span><span>07</span></div>
+</section></div>
+
+<div class="frame"><section class="slide" aria-label="07 Touch & Connect">
+  <div class="liquid" aria-hidden="true"><div class="blob b2"></div><div class="blob b4"></div></div>
+  <div class="kicker">07 · Touch &amp; Connect</div>
+  <h2>Conectar dispositivos con un toque</h2>
+  <div class="grid g2" style="margin-top:18px">
+    <div class="card"><div class="label">Hoy</div><h3>Entre teléfonos</h3><p>Detecta el contacto físico entre dos teléfonos y pide verificar el emparejamiento antes de conectar.</p><p style="margin-top:10px;font-size:13px;color:var(--soft)">Base validada en emulador; la interfaz se activa en su propia fase, después de la Beta.</p></div>
+    <div class="card"><div class="label">En el plan</div><h3>Todo tu ecosistema</h3><div class="pills" style="margin-top:12px"><span class="pill">PC</span><span class="pill">Relojes</span><span class="pill">Auriculares</span><span class="pill">Auto</span><span class="pill">TV</span></div><p style="margin-top:14px">El mismo gesto para conectar cualquier dispositivo.</p></div>
+  </div>
+  <div class="foot"><span>Galesh OS · Pitch Deck 2026</span><span>08</span></div>
+</section></div>
+
+<div class="frame"><section class="slide" aria-label="08 Hoja de ruta">
+  <div class="liquid" aria-hidden="true"><div class="blob b1"></div><div class="blob b3"></div></div>
+  <div class="kicker">08 · Hoja de ruta</div>
+  <h2>Del emulador al hardware real</h2>
+  <div class="grid g4" style="margin-top:18px">
+    <div class="card strong"><div class="label">2027 · Previsto</div><h3>Beta 1.0</h3><p>Imagen para emulador con los módulos principales, el tema Galesh y Quari Store.</p></div>
+    <div class="card"><div class="label">2027</div><h3>Versión 1.1</h3><p>Nueva pantalla de bloqueo y notificaciones. Primer dispositivo físico, en evaluación.</p></div>
+    <div class="card"><div class="label">2027</div><h3>Versión 1.2</h3><p>Rediseño de recientes, volumen y menú de apagado.</p></div>
+    <div class="card"><div class="label">Después</div><h3>Ecosistema</h3><p>Task Space, Touch &amp; Connect multidispositivo y alianzas con fabricantes.</p></div>
+  </div>
+  <div class="foot"><span>Galesh OS · Pitch Deck 2026</span><span>09</span></div>
+</section></div>
+
+<div class="frame"><section class="slide" aria-label="09 Modelo de negocio">
+  <div class="liquid" aria-hidden="true"><div class="blob b2"></div><div class="blob b4"></div></div>
+  <div class="kicker">09 · Modelo de negocio</div>
+  <h2>Comunidad abierta, licencias para fabricantes</h2>
+  <div class="grid g3" style="margin-top:18px">
+    <div class="card"><h3>Usuarios</h3><p>Beta gratuita para uso personal: adopción, comentarios y validación del producto.</p></div>
+    <div class="card"><h3>Fabricantes</h3><p>Preinstalación de Galesh OS mediante acuerdos de licencia y regalías.</p></div>
+    <div class="card"><h3>Empresas</h3><p>Licencias de los componentes propietarios para uso corporativo.</p></div>
+  </div>
+  <p class="note">La base AOSP es abierta; los componentes diferenciales de Galesh OS son propietarios y de código cerrado.</p>
+  <div class="foot"><span>Galesh OS · Pitch Deck 2026</span><span>10</span></div>
+</section></div>
+
+<div class="frame"><section class="slide cta" aria-label="10 Dónde estamos">
+  <div class="liquid" aria-hidden="true"></div>
+  <div class="kicker">10 · Dónde estamos</div>
+  <h2>Buscamos socios para llevar Galesh OS del emulador al hardware real.</h2>
+  <div class="pills"><span class="pill">10 módulos validados</span><span class="pill">Identidad Galesh en implementación</span><span class="pill">Beta pública prevista para 2027</span></div>
+  <div class="foot"><span>Galesh OS · Pitch Deck 2026</span><span>11</span></div>
+</section></div>
+
+<div class="frame"><section class="slide" aria-label="Contacto">
+  <div class="liquid" aria-hidden="true"><div class="blob b1"></div><div class="blob b3"></div><div class="blob b4"></div></div>
+  <div class="contact">
+    <div>
+      <div class="kicker">Contacto</div>
+      <h2>Hablemos</h2>
+      <p class="name">Gabriel Alexander Sharp Brizuela</p>
+      <p class="role">Fundador y desarrollador principal de Galesh OS</p>
+      <ul>
+        <li>Demostración en vivo del sistema</li>
+        <li>Código disponible para revisión técnica bajo NDA</li>
+        <li><a href="https://ashbtechnology.tech/galeshos/" style="color:var(--accent)">ashbtechnology.tech/galeshos</a></li>
+        <li><a href="mailto:contact@ashbtechnology.tech" style="color:var(--accent)">contact@ashbtechnology.tech</a></li>
+        <li style="color:var(--soft);font-size:15px">Documentación y licencias: <a href="https://ashb-official.github.io/Galesh_OS/" style="color:var(--soft)">ashb-official.github.io/Galesh_OS</a></li>
+      </ul>
+    </div>
+    <img class="logo-img" src="../../assets/logo-640.png" width="640" height="640" alt="Logotipo de Galesh OS: flor de ñandutí y el nombre Galesh OS">
+  </div>
+  <div class="foot"><span>© 2026 Gabriel Alexander Sharp Brizuela · Galesh OS</span><span>12</span></div>
+</section></div>
+
+</div>
+<script>
+  // Vista en pantalla: cada diapositiva de 1280×720 se escala al ancho disponible. En impresión no se escala.
+  (function(){
+    function fit(){
+      var f=document.querySelector('.frame'); if(!f)return;
+      var k=f.getBoundingClientRect().width/1280;
+      document.querySelectorAll('.slide').forEach(function(s){s.style.transform='scale('+k+')';});
+    }
+    fit(); addEventListener('resize',fit); addEventListener('beforeprint',function(){document.querySelectorAll('.slide').forEach(function(s){s.style.transform='';});}); addEventListener('afterprint',fit);
+  })();
+</script>
+</body>
+</html>

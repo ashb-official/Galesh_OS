@@ -27,235 +27,366 @@
   <link rel="icon" type="image/png" sizes="64x64" href="assets/favicon-64.png">
   <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Galesh OS","url":"https://ashb-official.github.io/Galesh_OS/","publisher":{"@type":"Organization","name":"ASHB Technology"}}</script>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="preload" href="assets/fonts/Sora-600.woff" as="font" type="font/woff" crossorigin>
+  <link rel="preload" href="assets/fonts/DMSans-400.woff" as="font" type="font/woff" crossorigin>
   <style>
-    /* Estilo alineado con el concepto Home de Galesh OS (v121): Sora + DM Sans, fondo del anillo de cristal, tarjetas de vidrio.
-       Claro por defecto; oscuro automático si el sistema del visitante está en modo oscuro (igual que Inicio / Inicio oscuro). */
-    :root {
+    /* Galesh OS · página pública. Sora (títulos) + DM Sans (texto), vidrio y fondo azul líquido del concepto Home.
+       Claro por defecto; oscuro automático según el sistema del visitante. Sin librerías: HTML, CSS y JS propios.
+       Fuentes autoalojadas en assets/fonts/ (SIL OFL 1.1). Animaciones solo con transform y opacity; se apagan con
+       prefers-reduced-motion. */
+    @font-face{font-family:Sora;font-weight:400;font-display:swap;src:url(assets/fonts/Sora-400.woff) format("woff")}
+    @font-face{font-family:Sora;font-weight:600;font-display:swap;src:url(assets/fonts/Sora-600.woff) format("woff")}
+    @font-face{font-family:"DM Sans";font-weight:400;font-display:swap;src:url(assets/fonts/DMSans-400.woff) format("woff")}
+    @font-face{font-family:"DM Sans";font-weight:500;font-display:swap;src:url(assets/fonts/DMSans-500.woff) format("woff")}
+    @font-face{font-family:"DM Sans";font-weight:600;font-display:swap;src:url(assets/fonts/DMSans-600.woff) format("woff")}
+    /* Respaldos con las métricas de Sora y DM Sans (size-adjust) para que el texto no salte cuando cargan las fuentes. */
+    @font-face{font-family:"Sora Fallback";font-weight:400;src:local("Arial"),local("Liberation Sans"),local("Roboto");size-adjust:113.4%;ascent-override:85.5%;descent-override:25.6%;line-gap-override:0%}
+    @font-face{font-family:"Sora Fallback";font-weight:600;src:local("Arial Bold"),local("Liberation Sans Bold"),local("Roboto Bold");size-adjust:106.8%;ascent-override:90.8%;descent-override:27.2%;line-gap-override:0%}
+    @font-face{font-family:"DM Sans Fallback";src:local("Arial"),local("Liberation Sans"),local("Roboto");size-adjust:104.1%;ascent-override:95.3%;descent-override:29.8%;line-gap-override:0%}
+
+    :root{
       color-scheme:light;
       --bg:#DCE7FF;
-      --text:#0B1F4D; --body:#1B2A44; --muted:#3D4A62; --soft:#55627A;
-      --accent:#1E4FD8; --accent2:#2B3FE8;
-      --line:rgba(11,31,77,.10); --line-strong:rgba(30,79,216,.28);
+      --text:#0B1F4D;--body:#1B2A44;--muted:#3D4A62;--soft:#55627A;
+      --accent:#1E4FD8;--accent2:#2B3FE8;
+      --line:rgba(11,31,77,.10);--line-strong:rgba(30,79,216,.28);
       --glass:linear-gradient(180deg,rgba(255,255,255,.66) 0%,rgba(238,244,255,.46) 100%);
       --glass-strong:linear-gradient(180deg,rgba(255,255,255,.80) 0%,rgba(240,246,255,.62) 100%);
       --glass-border:rgba(255,255,255,.74);
       --glass-sh:inset 0 1px 0 rgba(255,255,255,.9),0 1px 2px rgba(11,31,77,.05),0 14px 34px -12px rgba(11,31,77,.20);
       --brand:linear-gradient(135deg,#4FD8F0 0%,#2F7BFF 55%,#2B3FE8 100%);
       --hero-grad:linear-gradient(95deg,#0B86B0,#1E4FD8 48%,#3A2FD8);
-      --wall:
-        radial-gradient(ellipse 55% 45% at 50% 30%,rgba(255,255,255,.85),transparent 70%),
-        radial-gradient(ellipse 45% 40% at 95% 4%,rgba(186,168,255,.70),transparent 72%),
-        radial-gradient(ellipse 60% 55% at 0% 100%,rgba(47,91,255,.55),transparent 70%),
-        radial-gradient(ellipse 50% 45% at 100% 85%,rgba(120,170,255,.45),transparent 75%),
-        linear-gradient(180deg,#E8EFFF 0%,#D6E3FF 55%,#C8D8FF 100%);
-      --topbar:rgba(240,245,255,.78);
-      --nav:#24324E;
-      --focus:#1E4FD8;
+      --wall:linear-gradient(180deg,#E8EFFF 0%,#D6E3FF 55%,#C8D8FF 100%);
+      --b1:rgba(255,255,255,.95);--b2:rgba(186,168,255,.75);--b3:rgba(47,91,255,.50);--b4:rgba(120,190,255,.55);
+      --halo:rgba(79,216,240,.35);
+      --topbar:rgba(240,245,255,.72);
+      --nav:#24324E;--focus:#1E4FD8;
+      --btn-text:#fff;--pill:rgba(30,79,216,.10);--pill-text:#1E4FD8;
     }
-    @media (prefers-color-scheme:dark) {
-      :root {
+    @media (prefers-color-scheme:dark){
+      :root{
         color-scheme:dark;
         --bg:#070C1E;
-        --text:#EAF1FF; --body:#D5E0F5; --muted:#AEBBD6; --soft:#93A2C2;
-        --accent:#8FC8FF; --accent2:#9BA8FF;
-        --line:rgba(200,215,255,.12); --line-strong:rgba(143,200,255,.32);
+        --text:#EAF1FF;--body:#D5E0F5;--muted:#AEBBD6;--soft:#93A2C2;
+        --accent:#8FC8FF;--accent2:#9BA8FF;
+        --line:rgba(200,215,255,.12);--line-strong:rgba(143,200,255,.32);
         --glass:linear-gradient(180deg,rgba(30,42,80,.58) 0%,rgba(14,20,42,.64) 100%);
         --glass-strong:linear-gradient(180deg,rgba(34,48,92,.70) 0%,rgba(16,23,48,.76) 100%);
         --glass-border:rgba(200,215,255,.14);
         --glass-sh:inset 0 1px 0 rgba(255,255,255,.10),0 1px 2px rgba(0,0,0,.25),0 14px 34px -12px rgba(0,0,0,.55);
         --hero-grad:linear-gradient(95deg,#B8F2FF,#6FB4FF 45%,#9C9BFF);
-        --wall:
-          linear-gradient(180deg,rgba(3,8,24,.58) 0%,rgba(3,8,24,.74) 100%),
-          radial-gradient(ellipse 55% 45% at 50% 30%,rgba(190,215,255,.55),transparent 70%),
-          radial-gradient(ellipse 45% 40% at 95% 4%,rgba(160,140,255,.60),transparent 72%),
-          radial-gradient(ellipse 60% 55% at 0% 100%,rgba(47,91,255,.70),transparent 70%),
-          radial-gradient(ellipse 50% 45% at 100% 85%,rgba(90,140,255,.50),transparent 75%),
-          linear-gradient(180deg,#7E9BE0 0%,#5574CF 55%,#3A55B8 100%);
-        --topbar:rgba(8,14,34,.80);
-        --nav:#C7D3EA;
-        --focus:#9BE9FF;
+        --wall:linear-gradient(180deg,#070C1E 0%,#081433 55%,#060B1C 100%);
+        --b1:rgba(120,170,255,.28);--b2:rgba(150,120,255,.38);--b3:rgba(47,91,255,.55);--b4:rgba(79,216,240,.22);
+        --halo:rgba(79,216,240,.22);
+        --topbar:rgba(8,14,36,.66);
+        --nav:#C9D6F2;--focus:#8FC8FF;
+        --btn-text:#071022;--pill:rgba(143,200,255,.14);--pill-text:#B8DDFF;
       }
     }
-    * { box-sizing:border-box; }
-    html { scroll-behavior:smooth;scroll-padding-top:85px; }
-    body { margin:0; background:var(--bg); color:var(--body); font-family:'DM Sans',ui-sans-serif,system-ui,-apple-system,"Segoe UI",Arial,sans-serif; font-size:16px; line-height:1.65; -webkit-font-smoothing:antialiased; }
-    /* Fondo fijo en su propia capa: se compone una vez y no se repinta al desplazar (principio de fluidez). */
-    body::before {content:"";position:fixed;inset:0;z-index:-1;background:var(--wall);pointer-events:none;}
-    h1,h2,h3,.brand,.metric strong,.milestone .date { font-family:'Sora','DM Sans',ui-sans-serif,system-ui,sans-serif; color:var(--text); }
-    a { color:inherit;text-decoration:none; }
-    a:focus-visible,button:focus-visible {outline:3px solid var(--focus);outline-offset:4px;border-radius:6px;}
-    .wrap {width:min(1160px,calc(100% - 48px));margin:0 auto;}
-    .topbar {position:sticky;top:0;z-index:20;background:var(--topbar);backdrop-filter:blur(18px) saturate(160%);-webkit-backdrop-filter:blur(18px) saturate(160%);border-bottom:1px solid var(--line);}
-    .nav {min-height:72px;display:flex;align-items:center;justify-content:space-between;gap:20px;}
-    .brand {font-size:15px;font-weight:600;letter-spacing:.18em;white-space:nowrap;}
-    .brand b {font-weight:600;background:var(--brand);-webkit-background-clip:text;background-clip:text;color:transparent;}
-    .navlinks {display:flex;align-items:center;gap:25px;flex-wrap:wrap;color:var(--nav);font-size:14px;font-weight:500;}
-    .navlinks a:hover {color:var(--accent);}
-    .navlinks .nav-cta {border:1px solid var(--line-strong);border-radius:999px;padding:8px 15px;color:var(--accent);background:var(--glass);}
-    .hero {padding:52px 0 84px;text-align:center;}
-    .hero-logo {display:block;width:min(300px,58vw);height:auto;margin:0 auto -10px;filter:drop-shadow(0 6px 42px rgba(47,123,255,.22));}
-    @media (prefers-color-scheme:light) { .hero-logo {filter:drop-shadow(0 0 1px rgba(11,31,77,.55)) drop-shadow(0 1px 1px rgba(11,31,77,.35)) drop-shadow(0 8px 36px rgba(47,123,255,.22));} }
-    .eyebrow {color:var(--accent);font-size:12px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;}
-    h1 {margin:17px auto 20px;max-width:1060px;font-size:clamp(36px,5.3vw,68px);font-weight:600;line-height:1.08;letter-spacing:-.04em;}
-    .gradient {background:var(--hero-grad);-webkit-background-clip:text;background-clip:text;color:transparent;}
-    .sublead {max-width:880px;margin:0 auto;color:var(--muted);font-size:clamp(16px,1.8vw,19px);line-height:1.65;}
-    .actions {display:flex;justify-content:center;flex-wrap:wrap;gap:13px;margin-top:30px;}
-    .btn, .btn-primary {display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:12px 22px;font-size:15px;font-weight:600;border-radius:14px;border:1px solid var(--glass-border);transition:transform .18s ease,box-shadow .18s ease;}
-    .btn:hover, .btn-primary:hover {transform:translateY(-2px);}
-    .btn.primary, .btn-primary {background:linear-gradient(135deg,#1A6FD6 0%,#2F5BFF 55%,#2B3FE8 100%);border-color:transparent;color:#FFFFFF;box-shadow:inset 0 1px 0 rgba(255,255,255,.35),0 10px 28px -8px rgba(43,63,232,.55);}
-    .btn.secondary {background:var(--glass-strong);color:var(--text);box-shadow:var(--glass-sh);}
-    .notice {margin:18px auto 0;max-width:785px;color:var(--soft);font-size:13px;}
-    .hero-metrics {margin:44px auto 0;display:grid;grid-template-columns:repeat(3,1fr);max-width:860px;gap:14px;text-align:left;}
-    .metric,.panel,.tech,.biz-card,.milestone,.licence,.vision {background:var(--glass);border:1px solid var(--glass-border);box-shadow:var(--glass-sh);}
-    .metric {padding:18px 20px;border-radius:22px;}
-    .metric strong {display:block;font-size:17px;font-weight:600;letter-spacing:-.02em;}
-    .metric span {display:block;color:var(--accent);font-size:11px;text-transform:uppercase;letter-spacing:.12em;margin-bottom:7px;font-weight:600;}
-    .metric small {color:var(--muted);font-size:13px;}
-    .section {padding:84px 0;}
-    .kicker {display:inline-flex;align-items:center;gap:10px;color:var(--accent);font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.16em;}
-    .kicker::before {content:"";width:7px;height:7px;border-radius:4px;background:var(--brand);box-shadow:0 0 0 3px rgba(47,123,255,.16);}
-    h2 {font-size:clamp(30px,4vw,46px);font-weight:600;line-height:1.14;letter-spacing:-.035em;margin:13px 0 16px;}
-    h3 {font-weight:600;letter-spacing:-.02em;}
-    .intro {color:var(--muted);max-width:840px;font-size:17px;margin:0 0 35px;}
-    .two-col {display:grid;grid-template-columns:1fr 1fr;gap:18px;}
-    .panel,.tech,.biz-card {border-radius:22px;padding:28px;}
-    .panel.darker {background:var(--glass-strong);}
-    .panel h3 {font-size:23px;margin:0 0 12px;}
-    .panel p {color:var(--muted);margin:0;}
-    .bullet-label {display:inline-flex;gap:9px;align-items:center;margin-bottom:17px;font-size:12px;letter-spacing:.15em;color:var(--accent);text-transform:uppercase;font-weight:600;}
-    .bullet-label::before {content:"";width:7px;height:7px;border-radius:4px;background:var(--brand);box-shadow:0 0 0 3px rgba(47,123,255,.16);}
-    .tech-grid {display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:17px;}
-    .tech {min-height:290px;display:flex;flex-direction:column;}
-    .symbol {display:flex;align-items:center;justify-content:center;font-size:22px;width:52px;height:52px;margin-bottom:20px;border-radius:15px;background:var(--brand);color:#FFFFFF;box-shadow:inset 0 1px 0 rgba(255,255,255,.45),inset 0 -1px 0 rgba(0,0,0,.08),0 1px 2px rgba(11,31,77,.12),0 6px 14px -4px rgba(11,31,77,.28);}
-    .tech h3 {font-size:20px;margin:0 0 11px;}
-    .tech p {font-size:15px;color:var(--muted);margin:0 0 14px;}
-    .tech .benefit {margin-top:auto;padding-top:15px;border-top:1px solid var(--line);color:var(--accent);font-size:14px;}
-    .technical {margin-top:24px;padding:15px 19px;border-left:3px solid var(--accent);background:var(--glass);font-size:14px;color:var(--muted);border-radius:0 14px 14px 0;}
-    .technical strong {color:var(--text);}
-    .timeline {display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px;margin-top:35px;position:relative;}
-    .milestone {position:relative;border-radius:22px;padding:24px 20px;min-height:273px;}
-    .milestone::before {content:"";position:absolute;top:-7px;left:24px;width:14px;height:14px;background:var(--brand);border:3px solid var(--bg);border-radius:50%;box-shadow:0 0 0 3px rgba(47,123,255,.18);}
-    .milestone .date {font-size:12px;font-weight:600;color:var(--accent);letter-spacing:.1em;text-transform:uppercase;}
-    .milestone h3 {font-size:18px;line-height:1.3;margin:15px 0 10px;}
-    .milestone p {color:var(--muted);font-size:14px;margin:0;}
-    .milestone.featured {border-color:var(--line-strong);background:var(--glass-strong);}
-    .pill {font-size:12px;font-weight:500;color:var(--accent);padding:3px 10px;border:1px solid var(--line-strong);border-radius:999px;display:inline-block;margin-top:12px;}
-    .biz-grid {display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
-    .biz-card h3 {margin:0 0 8px;font-size:20px;}
-    .biz-card p {color:var(--muted);font-size:15px;margin:0;}
-    .licence {margin-top:25px;border-radius:24px;padding:31px;display:grid;grid-template-columns:1.1fr 1fr;gap:24px;align-items:center;background:var(--glass-strong);}
-    .licence p {color:var(--muted);margin:0;}
-    .licence strong {color:var(--text);}
-    .licence a {color:var(--accent);}
-    .vision {border-radius:26px;padding:38px;background:var(--glass-strong);}
-    .vision p {max-width:850px;color:var(--muted);}
-    .fine {font-size:13px;color:var(--soft);}
-    .fine strong {color:var(--text);}
-    footer {padding:29px 0 44px;border-top:1px solid var(--line);color:var(--muted);font-size:14px;background:var(--topbar);}
-    footer a:hover {color:var(--accent);}
-    .foot {display:flex;gap:12px;flex-wrap:wrap;align-items:center;justify-content:space-between;}
-    @media (max-width:1000px) {.timeline{grid-template-columns:repeat(2,1fr)}.tech-grid{grid-template-columns:repeat(2,1fr)}.navlinks{gap:13px}}
-    @media (max-width:680px) {.wrap{width:min(100% - 32px,1160px)}.nav{min-height:66px}.navlinks{gap:12px;font-size:13px}.navlinks a:nth-child(2),.navlinks a:nth-child(3),.navlinks a:nth-child(4){display:none}.hero{padding:34px 0 62px}.hero-logo{width:min(250px,65vw)}h1{font-size:clamp(32px,8.6vw,48px)}.hero-metrics,.two-col,.tech-grid,.timeline,.biz-grid,.licence{grid-template-columns:1fr}.section{padding:57px 0}.panel,.tech,.biz-card{padding:22px}.milestone{min-height:auto}.vision{padding:24px}.actions .btn,.actions .btn-primary{width:100%}.foot{align-items:flex-start;flex-direction:column}}
-    @media (max-width:680px) {.navlinks{flex-wrap:nowrap}}
-    @media (max-width:440px) {.navlinks a:nth-child(1){display:none}}
-    @media (prefers-reduced-motion:reduce) {html{scroll-behavior:auto}.btn,.btn-primary{transition:none}.btn:hover,.btn-primary:hover{transform:none}}
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+    body{margin:0;font-family:"DM Sans","DM Sans Fallback",system-ui,sans-serif;font-size:17px;line-height:1.6;color:var(--body);background:var(--bg);overflow-x:hidden}
+    h1,h2,h3,.brand,.kicker,.date,.metric strong,.num,.step b{font-family:Sora,"Sora Fallback",system-ui,sans-serif}
+    h1,h2,h3{color:var(--text);letter-spacing:-.01em;line-height:1.14;margin:0}
+    p{margin:0}
+    a{color:var(--accent)}
+    :focus-visible{outline:3px solid var(--focus);outline-offset:3px;border-radius:6px}
+    .skip{position:absolute;left:12px;top:-60px;z-index:50;background:var(--text);color:var(--bg);padding:10px 14px;border-radius:10px;font-weight:600;text-decoration:none}
+    .skip:focus{top:12px}
+    .wrap{width:min(100% - 40px,1160px);margin-inline:auto}
+
+    /* ---------- fondo azul líquido (capas compuestas por la GPU; solo transform) ---------- */
+    .liquid{position:fixed;inset:0;z-index:-1;overflow:hidden;background:var(--wall);pointer-events:none;contain:strict}
+    .blob{position:absolute;width:72vmax;height:72vmax;border-radius:50%;will-change:transform;transform:translate3d(0,0,0)}
+    .b1{left:14vw;top:-30vmax;background:radial-gradient(circle,var(--b1) 0%,transparent 60%);animation:d1 38s ease-in-out infinite alternate}
+    .b2{right:-28vmax;top:-22vmax;background:radial-gradient(circle,var(--b2) 0%,transparent 62%);animation:d2 46s ease-in-out infinite alternate}
+    .b3{left:-34vmax;bottom:-30vmax;background:radial-gradient(circle,var(--b3) 0%,transparent 62%);animation:d3 52s ease-in-out infinite alternate}
+    .b4{right:-20vmax;bottom:-26vmax;background:radial-gradient(circle,var(--b4) 0%,transparent 62%);animation:d4 44s ease-in-out infinite alternate}
+    @keyframes d1{to{transform:translate3d(-10vmax,8vmax,0) scale(1.18)}}
+    @keyframes d2{to{transform:translate3d(-14vmax,12vmax,0) scale(.9)}}
+    @keyframes d3{to{transform:translate3d(16vmax,-10vmax,0) scale(1.12)}}
+    @keyframes d4{to{transform:translate3d(-12vmax,-14vmax,0) scale(1.08)}}
+
+    /* ---------- barra superior ---------- */
+    .topbar{position:sticky;top:0;z-index:20;background:var(--topbar);-webkit-backdrop-filter:blur(18px) saturate(1.5);backdrop-filter:blur(18px) saturate(1.5);border-bottom:1px solid var(--line)}
+    .nav{display:flex;align-items:center;justify-content:space-between;min-height:70px;gap:16px}
+    .brand{display:inline-flex;align-items:center;gap:10px;color:var(--text);text-decoration:none;font-weight:600;letter-spacing:.14em;font-size:15px}
+    .brand svg{width:28px;height:28px;flex:none}
+    .navlinks{display:flex;align-items:center;gap:4px;flex-wrap:nowrap}
+    .navlinks a{color:var(--nav);text-decoration:none;font-weight:500;font-size:14px;padding:10px 12px;border-radius:10px;transition:background-color .2s}
+    .navlinks a:hover{background:var(--pill)}
+    .nav-cta{color:var(--pill-text)!important;background:var(--pill)}
+
+    /* ---------- hero ---------- */
+    .hero{position:relative;padding:72px 0 70px;text-align:center}
+    .logo{position:relative;width:min(320px,70vw);margin:0 auto 10px}
+    .logo::before{content:"";position:absolute;inset:-18%;border-radius:50%;background:radial-gradient(circle,var(--halo) 0%,transparent 62%);z-index:-1;animation:halo 1.6s cubic-bezier(.2,.7,.2,1) both .2s}
+    .flor{display:block;width:100%;height:auto;aspect-ratio:1;animation:settle 1.8s cubic-bezier(.2,.7,.2,1) both}
+    .pet{transform-box:fill-box;transform-origin:50% 100%;animation:bloom .95s cubic-bezier(.2,.7,.2,1) both;animation-delay:calc(140ms + var(--i)*55ms)}
+    .nudo{transform-box:fill-box;transform-origin:50% 50%;animation:pop .9s cubic-bezier(.2,.7,.2,1) both 60ms}
+    .wm{display:block;width:min(430px,78vw);height:auto;margin:-4px auto 0;animation:rise .9s cubic-bezier(.2,.7,.2,1) both .7s}
+    .wm-t{font-family:Sora,"Sora Fallback",system-ui,sans-serif;font-weight:600;font-size:60px;letter-spacing:.16em}
+    .sweep{animation:sweep 1.5s cubic-bezier(.4,0,.2,1) both 1.25s}
+    @keyframes bloom{from{opacity:0;transform:scale(.25) translateY(5px)}}
+    @keyframes pop{from{opacity:0;transform:scale(0)}}
+    @keyframes settle{from{transform:rotate(-14deg) scale(.96)}}
+    @keyframes halo{from{opacity:0;transform:scale(.6)}}
+    @keyframes rise{from{opacity:0;transform:translateY(14px)}}
+    @keyframes sweep{from{transform:translateX(0)}to{transform:translateX(200%)}}
+    .up{animation:rise .9s cubic-bezier(.2,.7,.2,1) both;animation-delay:var(--d,0ms)}
+    .eyebrow{font-size:13px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin:22px 0 14px}
+    h1{font-size:clamp(34px,5.4vw,60px);max-width:980px;margin:0 auto 18px;font-weight:600}
+    .gradient{background:var(--hero-grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+    .sublead{max-width:760px;margin:0 auto;font-size:clamp(17px,1.5vw,20px);color:var(--muted)}
+    .actions{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin:30px 0 14px}
+    .btn,.btn-primary{display:inline-flex;align-items:center;justify-content:center;min-height:50px;padding:12px 24px;border-radius:14px;font-weight:600;text-decoration:none;transition:transform .25s cubic-bezier(.2,.7,.2,1),box-shadow .25s}
+    .btn-primary{color:var(--btn-text);background:var(--brand);box-shadow:0 12px 30px -12px rgba(30,79,216,.7)}
+    .btn{color:var(--text);background:var(--glass-strong);border:1px solid var(--glass-border);box-shadow:var(--glass-sh)}
+    .btn:hover,.btn-primary:hover{transform:translateY(-2px)}
+    .notice{font-size:13px;color:var(--soft);max-width:640px;margin:0 auto}
+    .hero-metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:42px;text-align:left}
+    .metric{padding:20px 22px;border-radius:20px;background:var(--glass);border:1px solid var(--glass-border);box-shadow:var(--glass-sh);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
+    .metric span{display:block;font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--soft)}
+    .metric strong{display:block;font-size:22px;line-height:1.2;color:var(--text);margin:8px 0 6px;font-weight:600}
+    .metric small{font-size:14px;color:var(--muted)}
+
+    /* ---------- secciones ---------- */
+    .section{padding:86px 0;border-top:1px solid var(--line)}
+    .kicker{font-size:12px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin-bottom:14px}
+    h2{font-size:clamp(28px,3.6vw,44px);max-width:860px;margin-bottom:16px;font-weight:600}
+    .intro{max-width:760px;font-size:clamp(16px,1.3vw,19px);color:var(--muted);margin-bottom:38px}
+    .card{position:relative;padding:28px;border-radius:24px;background:var(--glass);border:1px solid var(--glass-border);box-shadow:var(--glass-sh);transition:transform .35s cubic-bezier(.2,.7,.2,1)}
+    .card:hover{transform:translateY(-4px)}
+    .card h3{font-size:21px;margin:10px 0 10px}
+    .card p{color:var(--muted);font-size:16px}
+    .label{font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
+    .num{font-size:13px;font-weight:600;letter-spacing:.12em;color:var(--accent);background:var(--pill);display:inline-block;padding:4px 10px;border-radius:999px}
+    .two-col{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+    .darker{background:var(--glass-strong)}
+    .tech-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+    .benefit{margin-top:14px;padding-top:12px;border-top:1px solid var(--line);font-size:14px;color:var(--soft)}
+    .technical{margin-top:26px;font-size:14px;color:var(--soft);max-width:900px}
+    .flow{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:18px}
+    .flow .card{padding:22px}
+    .flow .card h3{font-size:18px}
+    .flow .card::after{content:"→";position:absolute;right:-16px;top:50%;transform:translateY(-50%);color:var(--accent);font-size:22px;font-weight:600}
+    .flow .card:last-child::after{content:none}
+    .note{padding:18px 22px;border-radius:18px;background:var(--pill);color:var(--text);font-size:15px}
+    .steps{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-top:34px}
+    .step{padding:18px;border-radius:18px;border:1px solid var(--line);background:var(--glass)}
+    .step b{display:block;font-weight:600;color:var(--text);margin:6px 0 4px;font-size:17px}
+    .step span{font-size:12px;color:var(--accent);letter-spacing:.14em;font-weight:600}
+    .step p{font-size:14px;color:var(--muted)}
+    .timeline{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+    .milestone{display:flex;flex-direction:column}
+    .milestone .date{font-size:13px;font-weight:600;letter-spacing:.08em;color:var(--accent)}
+    .milestone p{flex:1}
+    .milestone.featured{border-color:var(--line-strong);background:var(--glass-strong)}
+    .pill{align-self:flex-start;margin-top:16px;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:6px 12px;border-radius:999px;background:var(--pill);color:var(--pill-text)}
+    .biz-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-bottom:18px}
+    .licence{display:grid;grid-template-columns:1.1fr 1fr;gap:28px;padding:32px;border-radius:24px;background:var(--glass-strong);border:1px solid var(--glass-border);box-shadow:var(--glass-sh)}
+    .licence h3{font-size:26px;margin:0 0 10px}
+    .licence p{color:var(--muted);font-size:16px}
+    .licence p+p{margin-top:12px}
+    .vision{padding:40px;border-radius:28px;background:var(--glass-strong);border:1px solid var(--glass-border);box-shadow:var(--glass-sh)}
+    .vision p{max-width:860px;color:var(--muted);font-size:clamp(16px,1.3vw,19px)}
+    .vision p+p{margin-top:14px}
+    .vision .actions{justify-content:flex-start;margin:28px 0 0}
+    footer{border-top:1px solid var(--line);padding:30px 0 40px;font-size:14px;color:var(--soft)}
+    .foot{display:flex;flex-wrap:wrap;gap:12px 28px;align-items:center;justify-content:space-between}
+    .foot a{color:var(--accent);font-weight:600;text-decoration:none}
+    .foot-links{display:flex;flex-wrap:wrap;gap:8px 18px}
+    .foot a.secondary{color:var(--soft);font-weight:500}
+
+    /* ---------- apariciones al hacer scroll (solo con JS; sin JS todo se ve) ---------- */
+    .js [data-reveal]{opacity:0;transform:translateY(28px);transition:opacity .9s cubic-bezier(.2,.7,.2,1),transform .9s cubic-bezier(.2,.7,.2,1);transition-delay:var(--d,0ms)}
+    .js [data-reveal].in{opacity:1;transform:none}
+    .stagger>:nth-child(2){--d:90ms}.stagger>:nth-child(3){--d:180ms}.stagger>:nth-child(4){--d:270ms}.stagger>:nth-child(5){--d:360ms}.stagger>:nth-child(6){--d:450ms}
+
+    /* ---------- responsive ---------- */
+    @media (max-width:1000px){.tech-grid,.timeline{grid-template-columns:repeat(2,1fr)}.flow{grid-template-columns:repeat(2,1fr)}.flow .card:nth-child(2)::after{content:none}.steps{grid-template-columns:repeat(3,1fr)}.biz-grid{grid-template-columns:1fr}.licence{grid-template-columns:1fr}}
+    @media (max-width:680px){.wrap{width:min(100% - 32px,1160px)}.nav{min-height:64px}.navlinks a{padding:10px 8px;font-size:13px}.navlinks a:not(.nav-cta){display:none}.hero{padding:44px 0 56px}.logo{width:min(250px,66vw)}.hero-metrics,.two-col,.tech-grid,.timeline,.flow,.steps{grid-template-columns:1fr}.flow .card::after{content:none}.section{padding:60px 0}.card,.licence,.vision{padding:22px}.actions .btn,.actions .btn-primary{width:100%}.vision .actions{margin-top:22px}.foot{flex-direction:column;align-items:flex-start}}
+    @media (min-width:681px) and (max-width:860px){.navlinks a:nth-child(2),.navlinks a:nth-child(3){display:none}}
+
+    @media (prefers-reduced-motion:reduce){
+      html{scroll-behavior:auto}
+      *,*::before,*::after{animation:none!important;transition:none!important}
+      .js [data-reveal]{opacity:1;transform:none}
+    }
   </style>
 </head>
 <body>
+  <a class="skip" href="#contenido">Ir al contenido</a>
+  <div class="liquid" aria-hidden="true"><div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div><div class="blob b4"></div></div>
+
   <header class="topbar">
     <div class="wrap nav">
-      <a class="brand" href="#inicio" aria-label="Galesh OS, inicio">GALESH <b>OS</b></a>
+      <a class="brand" href="#inicio" aria-label="Galesh OS, inicio"><svg xmlns="http://www.w3.org/2000/svg" viewBox="-50 -50 100 100" aria-hidden="true" focusable="false"><defs><linearGradient id="sg" gradientUnits="userSpaceOnUse" x1="-46" y1="14" x2="46" y2="-14"><stop offset="0" stop-color="#4FD8F0"/><stop offset="0.3" stop-color="#6FC3FF"/><stop offset="0.55" stop-color="#2F7BFF"/><stop offset="0.8" stop-color="#2F5BFF"/><stop offset="1" stop-color="#3B2FE0"/></linearGradient><mask id="sm" maskUnits="userSpaceOnUse" x="-50" y="-50" width="100" height="100"><g transform="scale(1.38)"><g transform="rotate(0)"><g><path d="M0 -11C-4.2 -15-6 -22-4.6 -27C-3.6 -31-1.6 -33 0 -34C1.6 -33 3.6 -31 4.6 -27C6 -22 4.2 -15 0 -11Z" fill="#fff"/></g></g><g transform="rotate(30)"><g><path d="M0 -11C-4.2 -15-6 -22-4.6 -27C-3.6 -31-1.6 -33 0 -34C1.6 -33 3.6 -31 4.6 -27C6 -22 4.2 -15 0 -11Z" fill="#fff"/></g></g><g transform="rotate(60)"><g><path d="M0 -11C-4.2 -15-6 -22-4.6 -27C-3.6 -31-1.6 -33 0 -34C1.6 -33 3.6 -31 4.6 -27C6 -22 4.2 -15 0 -11Z" fill="#fff"/></g></g><g transform="rotate(90)"><g><path d="M0 -11C-4.2 -15-6 -22-4.6 -27C-3.6 -31-1.6 -33 0 -34C1.6 -33 3.6 -31 4.6 -27C6 -22 4.2 -15 0 -11Z" fill="#fff"/></g></g><g transform="rotate(120)"><g><path d="M0 -11C-4.2 -15-6 -22-4.6 -27C-3.6 -31-1.6 -33 0 -34C1.6 -33 3.6 -31 4.6 -27C6 -22 4.2 -15 0 -11Z" fill="#fff"/></g></g><g transform="rotate(150)"><g><path d="M0 -11C-4.2 -15-6 -22-4.6 -27C-3.6 -31-1.6 -33 0 -34C1.6 -33 3.6 -31 4.6 -27C6 -22 4.2 -15 0 -11Z" fill="#fff"/></g></g><g transform="rotate(180)"><g><path d="M0 -11C-4.2 -15-6 -22-4.6 -27C-3.6 -31-1.6 -33 0 -34C1.6 -33 3.6 -31 4.6 -27C6 -22 4.2 -15 0 -11Z" fill="#fff"/></g></g><g transform="rotate(210)"><g><path d="M0 -11C-4.2 -15-6 -22-4.6 -27C-3.6 -31-1.6 -33 0 -34C1.6 -33 3.6 -31 4.6 -27C6 -22 4.2 -15 0 -11Z" fill="#fff"/></g></g><g transform="rotate(240)"><g><path d="M0 -11C-4.2 -15-6 -22-4.6 -27C-3.6 -31-1.6 -33 0 -34C1.6 -33 3.6 -31 4.6 -27C6 -22 4.2 -15 0 -11Z" fill="#fff"/></g></g><g transform="rotate(270)"><g><path d="M0 -11C-4.2 -15-6 -22-4.6 -27C-3.6 -31-1.6 -33 0 -34C1.6 -33 3.6 -31 4.6 -27C6 -22 4.2 -15 0 -11Z" fill="#fff"/></g></g><g transform="rotate(300)"><g><path d="M0 -11C-4.2 -15-6 -22-4.6 -27C-3.6 -31-1.6 -33 0 -34C1.6 -33 3.6 -31 4.6 -27C6 -22 4.2 -15 0 -11Z" fill="#fff"/></g></g><g transform="rotate(330)"><g><path d="M0 -11C-4.2 -15-6 -22-4.6 -27C-3.6 -31-1.6 -33 0 -34C1.6 -33 3.6 -31 4.6 -27C6 -22 4.2 -15 0 -11Z" fill="#fff"/></g></g><g><circle r="9" fill="none" stroke="#fff" stroke-width="1.4"/><circle r="4.2" fill="#fff"/></g></g></mask></defs><rect x="-50" y="-50" width="100" height="100" fill="url(#sg)" mask="url(#sm)"/></svg>GALESH OS</a>
       <nav class="navlinks" aria-label="Navegación principal">
         <a href="#vision-mercado">Oportunidad</a>
         <a href="#tecnologias">Tecnologías</a>
+        <a href="#arquitectura">Arquitectura</a>
         <a href="#roadmap">Roadmap</a>
         <a href="#negocio">Negocio</a>
         <a class="nav-cta" href="#desarrollo">Estado del proyecto</a>
       </nav>
     </div>
   </header>
+
   <main id="inicio">
-    <section class="hero wrap" aria-labelledby="headline">
-      <img class="hero-logo" src="assets/logo-640.png" width="640" height="640" alt="Logotipo oficial transparente de Galesh OS, flor de ñandutí en degradé azul y tipografía plateada" fetchpriority="high">
-      <div class="eyebrow">Deep Tech · Sistemas operativos · ASHB Technology</div>
-      <h1 id="headline">Galesh OS: <span class="gradient">Rendimiento sin compromisos</span> y Privacidad por Diseño.</h1>
-      <p class="sublead">Sistema operativo móvil basado en AOSP 14, con servicios propios sin privilegios de root, seguridad de mínimo privilegio y herramientas de rendimiento y batería integradas en el sistema. Una alternativa que busca desafiar el statu quo del mercado móvil.</p>
-      <div class="actions">
-        <a href="docs/Cygnus_OS_Pitch_Deck_2026.pdf" target="_blank" rel="noopener noreferrer" class="btn-primary">Ver Pitch Deck (PDF)</a>
-        <a class="btn secondary" href="#tecnologias">Ver Arquitectura Técnica →</a>
+    <section class="hero wrap" aria-labelledby="headline" id="contenido">
+      <div class="logo" role="img" aria-label="Logotipo de Galesh OS: flor de ñandutí en degradé azul con el nombre Galesh OS">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="-50 -50 100 100" aria-hidden="true" focusable="false" class="flor"><defs><linearGradient id="hg" gradientUnits="userSpaceOnUse" x1="-46" y1="14" x2="46" y2="-14"><stop offset="0" stop-color="#4FD8F0"/><stop offset="0.3" stop-color="#6FC3FF"/><stop offset="0.55" stop-color="#2F7BFF"/><stop offset="0.8" stop-color="#2F5BFF"/><stop offset="1" stop-color="#3B2FE0"/></linearGradient><radialGradient id="hh" gradientUnits="userSpaceOnUse" cx="24" cy="-30" r="34"><stop offset="0" stop-color="#FFFFFF" stop-opacity="0.85"/><stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/></radialGradient><pattern id="hp" patternUnits="userSpaceOnUse" width="1.15" height="1.7"><rect width="0.5" height="1.7" fill="#fff"/><rect width="1.15" height="0.32" fill="#fff" fill-opacity="0.55"/></pattern><mask id="hm" maskUnits="userSpaceOnUse" x="-50" y="-50" width="100" height="100"><g transform="scale(1.38)"><g transform="rotate(0)"><g class="pet" style="--i:0"><path d="M0 -11C-4.2 -15-6 -22-4.6 -27C-3.6 -31-1.6 -33 0 -34C1.6 -33 3.6 -31 4.6 -27C6 -22 4.2 -15 0 -11Z" fill="#fff" fill-opacity="0.22"/><path d="M0 -11C-4.2 -15-6 -22-4.6 -27C-3.6 -31-1.6 -33 0 -34C1.6 -33 3.6 -31 4.6 -27C6 -22 4.2 -15 0 -11Z" fill="url(#hp)" stroke="#fff" stroke-width="0.45" stroke-linejoin="round"/></g></g><g transform="rotate(30)"><g class="pet" style="--i:1"><path d="M0 -11C-4.2 -15-6 -22-4.6 -27C-3.6 -31-1.6 -33 0 -34C1.6 -33 3.6 -31 4.6 -27C6 -22 4.2 -15 0 -11Z" fill="#fff" fill-opacity="0.22"/><path d="M0 -11C-4.2 -15-6 -22-4.6 -27C-3.6 -31-1.6 -33 0 -34C1.6 -33 3.6 -31 4.6 -27C6 -22 4.2 -15 0 -11Z" fill="url(#hp)" stroke="#fff" stroke-width="0.45" stroke-linejoin="round"/></g></g><g transform="rotate(60)"><g class="pet" style="--i:2"><path d="M0 -11C-4.2 -15-6 -22-4.6 -27C-3.6 -31-1.6 -33 0 -34C1.6 -33 3.6 -31 4.6 -27C6 -22 4.2 -15 0 -11Z" fill="#fff" fill-opacity="0.22"/><path d="M0 -11C-4.2 -15-6 -22-4.6 -27C-3.6 -31-1.6 -33 0 -34C1.6 -33 3.6 -31 4.6 -27C6 -22 4.2 -15 0 -11Z" fill="url(#hp)" stroke="#fff" stroke-width="0.45" stroke-linejoin="round"/></g></g><g transform="rotate(90)"><g class="pet" style="--i:3"><path d="M0 -11C-4.2 -15-6 -22-4.6 -27C-3.6 -31-1.6 -33 0 -34C1.6 -33 3.6 -31 4.6 -27C6 -22 4.2 -15 0 -11Z" fill="#fff" fill-opacity="0.22"/><path d="M0 -11C-4.2 -15-6 -22-4.6 -27C-3.6 -31-1.6 -33 0 -34C1.6 -33 3.6 -31 4.6 -27C6 -22 4.2 -15 0 -11Z" fill="url(#hp)" stroke="#fff" stroke-width="0.45" stroke-linejoin="round"/></g></g><g transform="rotate(120)"><g class="pet" style="--i:4"><path d="M0 -11C-4.2 -15-6 -22-4.6 -27C-3.6 -31-1.6 -33 0 -34C1.6 -33 3.6 -31 4.6 -27C6 -22 4.2 -15 0 -11Z" fill="#fff" fill-opacity="0.22"/><path d="M0 -11C-4.2 -15-6 -22-4.6 -27C-3.6 -31-1.6 -33 0 -34C1.6 -33 3.6 -31 4.6 -27C6 -22 4.2 -15 0 -11Z" fill="url(#hp)" stroke="#fff" stroke-width="0.45" stroke-linejoin="round"/></g></g><g transform="rotate(150)"><g class="pet" style="--i:5"><path d="M0 -11C-4.2 -15-6 -22-4.6 -27C-3.6 -31-1.6 -33 0 -34C1.6 -33 3.6 -31 4.6 -27C6 -22 4.2 -15 0 -11Z" fill="#fff" fill-opacity="0.22"/><path d="M0 -11C-4.2 -15-6 -22-4.6 -27C-3.6 -31-1.6 -33 0 -34C1.6 -33 3.6 -31 4.6 -27C6 -22 4.2 -15 0 -11Z" fill="url(#hp)" stroke="#fff" stroke-width="0.45" stroke-linejoin="round"/></g></g><g transform="rotate(180)"><g class="pet" style="--i:6"><path d="M0 -11C-4.2 -15-6 -22-4.6 -27C-3.6 -31-1.6 -33 0 -34C1.6 -33 3.6 -31 4.6 -27C6 -22 4.2 -15 0 -11Z" fill="#fff" fill-opacity="0.22"/><path d="M0 -11C-4.2 -15-6 -22-4.6 -27C-3.6 -31-1.6 -33 0 -34C1.6 -33 3.6 -31 4.6 -27C6 -22 4.2 -15 0 -11Z" fill="url(#hp)" stroke="#fff" stroke-width="0.45" stroke-linejoin="round"/></g></g><g transform="rotate(210)"><g class="pet" style="--i:7"><path d="M0 -11C-4.2 -15-6 -22-4.6 -27C-3.6 -31-1.6 -33 0 -34C1.6 -33 3.6 -31 4.6 -27C6 -22 4.2 -15 0 -11Z" fill="#fff" fill-opacity="0.22"/><path d="M0 -11C-4.2 -15-6 -22-4.6 -27C-3.6 -31-1.6 -33 0 -34C1.6 -33 3.6 -31 4.6 -27C6 -22 4.2 -15 0 -11Z" fill="url(#hp)" stroke="#fff" stroke-width="0.45" stroke-linejoin="round"/></g></g><g transform="rotate(240)"><g class="pet" style="--i:8"><path d="M0 -11C-4.2 -15-6 -22-4.6 -27C-3.6 -31-1.6 -33 0 -34C1.6 -33 3.6 -31 4.6 -27C6 -22 4.2 -15 0 -11Z" fill="#fff" fill-opacity="0.22"/><path d="M0 -11C-4.2 -15-6 -22-4.6 -27C-3.6 -31-1.6 -33 0 -34C1.6 -33 3.6 -31 4.6 -27C6 -22 4.2 -15 0 -11Z" fill="url(#hp)" stroke="#fff" stroke-width="0.45" stroke-linejoin="round"/></g></g><g transform="rotate(270)"><g class="pet" style="--i:9"><path d="M0 -11C-4.2 -15-6 -22-4.6 -27C-3.6 -31-1.6 -33 0 -34C1.6 -33 3.6 -31 4.6 -27C6 -22 4.2 -15 0 -11Z" fill="#fff" fill-opacity="0.22"/><path d="M0 -11C-4.2 -15-6 -22-4.6 -27C-3.6 -31-1.6 -33 0 -34C1.6 -33 3.6 -31 4.6 -27C6 -22 4.2 -15 0 -11Z" fill="url(#hp)" stroke="#fff" stroke-width="0.45" stroke-linejoin="round"/></g></g><g transform="rotate(300)"><g class="pet" style="--i:10"><path d="M0 -11C-4.2 -15-6 -22-4.6 -27C-3.6 -31-1.6 -33 0 -34C1.6 -33 3.6 -31 4.6 -27C6 -22 4.2 -15 0 -11Z" fill="#fff" fill-opacity="0.22"/><path d="M0 -11C-4.2 -15-6 -22-4.6 -27C-3.6 -31-1.6 -33 0 -34C1.6 -33 3.6 -31 4.6 -27C6 -22 4.2 -15 0 -11Z" fill="url(#hp)" stroke="#fff" stroke-width="0.45" stroke-linejoin="round"/></g></g><g transform="rotate(330)"><g class="pet" style="--i:11"><path d="M0 -11C-4.2 -15-6 -22-4.6 -27C-3.6 -31-1.6 -33 0 -34C1.6 -33 3.6 -31 4.6 -27C6 -22 4.2 -15 0 -11Z" fill="#fff" fill-opacity="0.22"/><path d="M0 -11C-4.2 -15-6 -22-4.6 -27C-3.6 -31-1.6 -33 0 -34C1.6 -33 3.6 -31 4.6 -27C6 -22 4.2 -15 0 -11Z" fill="url(#hp)" stroke="#fff" stroke-width="0.45" stroke-linejoin="round"/></g></g><g class="nudo"><circle r="9" fill="#fff" fill-opacity="0.22" stroke="#fff" stroke-width="0.6"/><circle r="6.6" fill="none" stroke="#fff" stroke-width="0.4"/><line x1="6.60" y1="0.00" x2="9.00" y2="0.00" stroke="#fff" stroke-width="0.35"/><line x1="6.38" y1="1.71" x2="8.69" y2="2.33" stroke="#fff" stroke-width="0.35"/><line x1="5.72" y1="3.30" x2="7.79" y2="4.50" stroke="#fff" stroke-width="0.35"/><line x1="4.67" y1="4.67" x2="6.36" y2="6.36" stroke="#fff" stroke-width="0.35"/><line x1="3.30" y1="5.72" x2="4.50" y2="7.79" stroke="#fff" stroke-width="0.35"/><line x1="1.71" y1="6.38" x2="2.33" y2="8.69" stroke="#fff" stroke-width="0.35"/><line x1="0.00" y1="6.60" x2="0.00" y2="9.00" stroke="#fff" stroke-width="0.35"/><line x1="-1.71" y1="6.38" x2="-2.33" y2="8.69" stroke="#fff" stroke-width="0.35"/><line x1="-3.30" y1="5.72" x2="-4.50" y2="7.79" stroke="#fff" stroke-width="0.35"/><line x1="-4.67" y1="4.67" x2="-6.36" y2="6.36" stroke="#fff" stroke-width="0.35"/><line x1="-5.72" y1="3.30" x2="-7.79" y2="4.50" stroke="#fff" stroke-width="0.35"/><line x1="-6.38" y1="1.71" x2="-8.69" y2="2.33" stroke="#fff" stroke-width="0.35"/><line x1="-6.60" y1="0.00" x2="-9.00" y2="0.00" stroke="#fff" stroke-width="0.35"/><line x1="-6.38" y1="-1.71" x2="-8.69" y2="-2.33" stroke="#fff" stroke-width="0.35"/><line x1="-5.72" y1="-3.30" x2="-7.79" y2="-4.50" stroke="#fff" stroke-width="0.35"/><line x1="-4.67" y1="-4.67" x2="-6.36" y2="-6.36" stroke="#fff" stroke-width="0.35"/><line x1="-3.30" y1="-5.72" x2="-4.50" y2="-7.79" stroke="#fff" stroke-width="0.35"/><line x1="-1.71" y1="-6.38" x2="-2.33" y2="-8.69" stroke="#fff" stroke-width="0.35"/><line x1="-0.00" y1="-6.60" x2="-0.00" y2="-9.00" stroke="#fff" stroke-width="0.35"/><line x1="1.71" y1="-6.38" x2="2.33" y2="-8.69" stroke="#fff" stroke-width="0.35"/><line x1="3.30" y1="-5.72" x2="4.50" y2="-7.79" stroke="#fff" stroke-width="0.35"/><line x1="4.67" y1="-4.67" x2="6.36" y2="-6.36" stroke="#fff" stroke-width="0.35"/><line x1="5.72" y1="-3.30" x2="7.79" y2="-4.50" stroke="#fff" stroke-width="0.35"/><line x1="6.38" y1="-1.71" x2="8.69" y2="-2.33" stroke="#fff" stroke-width="0.35"/><circle r="4.2" fill="#fff"/></g></g></mask></defs><rect x="-50" y="-50" width="100" height="100" fill="url(#hg)" mask="url(#hm)"/><rect x="-50" y="-50" width="100" height="100" fill="url(#hh)" mask="url(#hm)"/></svg>
+        <svg class="wm" viewBox="0 0 480 84" aria-hidden="true" focusable="false">
+          <defs>
+            <linearGradient id="wm-tg" gradientUnits="userSpaceOnUse" x1="0" y1="20" x2="0" y2="64"><stop offset="0" stop-color="#F7F7F7"/><stop offset="0.2" stop-color="#ECECEC"/><stop offset="0.5" stop-color="#D3D3D3"/><stop offset="0.8" stop-color="#B3B3B3"/><stop offset="1" stop-color="#9A9A9A"/></linearGradient>
+            <linearGradient id="wm-luz" gradientUnits="userSpaceOnUse" x1="0" y1="20" x2="0" y2="64"><stop offset="0" stop-color="#FFFFFF" stop-opacity="0.95"/><stop offset="0.06" stop-color="#FFFFFF" stop-opacity="0"/><stop offset="0.94" stop-color="#FFFFFF" stop-opacity="0"/><stop offset="1" stop-color="#FFFFFF" stop-opacity="0.35"/></linearGradient>
+            <linearGradient id="wm-sw" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#FFFFFF" stop-opacity="0"/><stop offset="0.5" stop-color="#FFFFFF" stop-opacity="0.9"/><stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/></linearGradient>
+            <mask id="wm-m"><text class="wm-t" x="240" y="64" text-anchor="middle" fill="#fff">GALESH OS</text></mask>
+          </defs>
+          <text class="wm-t" x="240" y="64" text-anchor="middle" fill="#3A3A3A" stroke="#3A3A3A" stroke-width="2.2" stroke-linejoin="miter">GALESH OS</text>
+          <text class="wm-t" x="240" y="64" text-anchor="middle" fill="url(#wm-tg)">GALESH OS</text>
+          <text class="wm-t" x="240" y="64" text-anchor="middle" fill="url(#wm-luz)" opacity="0.9">GALESH OS</text>
+          <g mask="url(#wm-m)"><rect class="sweep" x="-240" y="0" width="240" height="84" fill="url(#wm-sw)"/></g>
+        </svg>
       </div>
-      <p class="notice">Las metas de fluidez, tiempos de carga y ahorro energético requieren validación cuantitativa; no son garantías actuales.</p>
+      <div class="eyebrow up" style="--d:.35s">Deep Tech · Sistemas operativos · ASHB Technology</div>
+      <h1 id="headline" class="up" style="--d:.45s">Galesh OS: <span class="gradient">rendimiento sin compromisos</span> y privacidad por diseño.</h1>
+      <p class="sublead up" style="--d:.58s">Sistema operativo móvil basado en AOSP 14, con servicios propios sin privilegios de root, seguridad de mínimo privilegio y herramientas de rendimiento y batería integradas en el sistema. Una alternativa que busca desafiar el statu quo del mercado móvil.</p>
+      <div class="actions up" style="--d:.72s">
+        <a href="docs/Galesh_OS_Pitch_Deck_2026.pdf" target="_blank" rel="noopener noreferrer" class="btn-primary">Ver Pitch Deck (PDF)</a>
+        <a class="btn" href="#tecnologias">Ver arquitectura técnica →</a>
+      </div>
+      <p class="notice up" style="--d:.84s">Las metas de fluidez, tiempos de carga y ahorro energético requieren validación cuantitativa; no son garantías actuales.</p>
       <div class="hero-metrics" aria-label="Información del proyecto">
-        <div class="metric"><span>Estado actual</span><strong>8 de 22 módulos validados</strong><small>En emulador; integración y pruebas en curso</small></div>
-        <div class="metric"><span>Beta abierta prevista</span><strong>2027</strong><small>Sujeta a validación</small></div>
-        <div class="metric"><span>Modelo de crecimiento</span><strong>Comunidad + licencias</strong><small>Acceso beta gratuito y motores propietarios</small></div>
+        <div class="metric up" style="--d:.95s"><span>Estado actual</span><strong>10 de 22 módulos validados</strong><small>En emulador; integración y pruebas en curso</small></div>
+        <div class="metric up" style="--d:1.05s"><span>Beta abierta prevista</span><strong>2027</strong><small>Sujeta a validación</small></div>
+        <div class="metric up" style="--d:1.15s"><span>Modelo de crecimiento</span><strong>Comunidad + licencias</strong><small>Acceso beta gratuito y motores propietarios</small></div>
       </div>
     </section>
 
     <section class="section" id="vision-mercado" aria-labelledby="vision-titulo">
       <div class="wrap">
-        <div class="kicker">01 / Propuesta de valor</div>
-        <h2 id="vision-titulo">Por qué Galesh OS</h2>
-        <p class="intro">Un enfoque alternativo para usuarios, fabricantes y socios que buscan eficiencia, control y diferenciación sin depender exclusivamente de experiencias móviles homogéneas.</p>
-        <div class="two-col">
-          <article class="panel darker"><div class="bullet-label">El problema</div><h3>Un mercado con alternativas limitadas.</h3><p>Los grandes ecosistemas móviles concentran distribución y servicios. Los usuarios y fabricantes pueden enfrentar restricciones de personalización, menor control sobre ciertos datos y ciclos de soporte que dejan atrás dispositivos funcionales.</p></article>
-          <article class="panel"><div class="bullet-label">Nuestra solución</div><h3>Más control. Mejor aprovechamiento del hardware.</h3><p>Galesh OS propone una arquitectura modular, aislamiento por diseño y optimización coordinada del hardware. La meta es sostener una interfaz fluida —con objetivo de 60 fps en dispositivos compatibles de gama media— y ofrecer componentes auditables donde el licenciamiento lo permita.</p></article>
+        <div data-reveal>
+          <div class="kicker">01 / Propuesta de valor</div>
+          <h2 id="vision-titulo">Por qué Galesh OS</h2>
+          <p class="intro">Un enfoque alternativo para usuarios, fabricantes y socios que buscan eficiencia, control y diferenciación sin depender exclusivamente de experiencias móviles homogéneas.</p>
+        </div>
+        <div class="two-col stagger">
+          <article class="card darker" data-reveal><div class="label">El problema</div><h3>Un mercado con alternativas limitadas.</h3><p>Los grandes ecosistemas móviles concentran distribución y servicios. Los usuarios y fabricantes pueden enfrentar restricciones de personalización, menor control sobre ciertos datos y ciclos de soporte que dejan atrás dispositivos funcionales.</p></article>
+          <article class="card" data-reveal><div class="label">Nuestra solución</div><h3>Más control. Mejor aprovechamiento del hardware.</h3><p>Galesh OS propone una arquitectura modular, aislamiento por diseño y optimización coordinada del hardware. La meta es sostener una interfaz fluida —con objetivo de 60 fps en dispositivos compatibles de gama media— y ofrecer componentes auditables donde el licenciamiento lo permita.</p></article>
         </div>
       </div>
     </section>
 
     <section class="section" id="tecnologias" aria-labelledby="tech-titulo">
       <div class="wrap">
-        <div class="kicker">02 / Ventaja tecnológica</div>
-        <h2 id="tech-titulo">Un núcleo técnico con potencial de diferenciación.</h2>
-        <p class="intro">La propuesta combina servicios propios sin root, seguridad de mínimo privilegio y gestión adaptativa del rendimiento y la batería. Los beneficios comerciales indicados son hipótesis que deberán verificarse con pruebas repetibles.</p>
-        <div class="tech-grid">
-          <article class="tech"><div class="symbol">⚙</div><h3>Servicios sin root</h3><p>Cada función corre como un servicio propio, en su propio proceso y sin privilegios de root, y solo atiende a clientes autorizados por firma.</p><div class="benefit">Valor: menor superficie de ataque; un fallo en un servicio no compromete al resto del sistema.</div></article>
-          <article class="tech"><div class="symbol">◇</div><h3>SELinux de mínimo privilegio</h3><p>Política SELinux estricta para cada servicio propio: acceso solo a lo que necesita, sin modos permisivos ni permisos amplios.</p><div class="benefit">Valor esperado: mayor protección de datos corporativos y personales, con controles auditables; ningún aislamiento ofrece seguridad absoluta.</div></article>
-          <article class="tech"><div class="symbol">◈</div><h3>Game Turbo</h3><p>Sesiones de juego con un perfil de rendimiento dedicado que se cierra solo al terminar el juego. Validado en emulador.</p><div class="benefit">Valor esperado: rendimiento sostenido en juegos, sujeto a mediciones en hardware real.</div></article>
-          <article class="tech"><div class="symbol">◎</div><h3>Motor ACE 0.1</h3><p>Supervisión de hardware, consumo energético, carga de juegos y temperatura. La coordinación avanzada pertenece a versiones futuras.</p><div class="benefit">Valor esperado: capa diferenciadora de optimización adaptable susceptible de licenciamiento propio.</div></article>
-          <article class="tech"><div class="symbol">▦</div><h3>AHC + Battery Guard</h3><p>Clasificación de las capacidades del dispositivo y estado de protección de la batería integrado en el sistema.</p><div class="benefit">Valor esperado: optimización por segmento de hardware y mejoras de autonomía sujetas a benchmarks.</div></article>
-          <article class="tech"><div class="symbol">⇄</div><h3>Touch &amp; Connect + Quari Store</h3><p>Emparejamiento al tocar dispositivos (base validada en emulador) y una tienda curada con catálogo firmado digitalmente.</p><div class="benefit">Valor esperado: una experiencia reconocible y expansión futura a PC, relojes, auriculares, auto y TV.</div></article>
+        <div data-reveal>
+          <div class="kicker">02 / Ventaja tecnológica</div>
+          <h2 id="tech-titulo">Un núcleo técnico con potencial de diferenciación.</h2>
+          <p class="intro">La propuesta combina servicios propios sin root, seguridad de mínimo privilegio y gestión adaptativa del rendimiento y la batería. Los beneficios comerciales indicados son hipótesis que deberán verificarse con pruebas repetibles.</p>
         </div>
-        <p class="technical"><strong>Estado de validación:</strong> los módulos indicados están validados en emulador. Las mejoras de rendimiento y autonomía se medirán en hardware real a partir de la versión 1.1. Ninguna arquitectura de seguridad garantiza una protección absoluta.</p>
+        <div class="tech-grid stagger">
+          <article class="card" data-reveal><span class="num">01</span><h3>Servicios sin root</h3><p>Cada función corre como un servicio propio, en su propio proceso y sin privilegios de root, y solo atiende a clientes autorizados por firma.</p><div class="benefit">Valor: menor superficie de ataque; un fallo en un servicio no compromete al resto del sistema.</div></article>
+          <article class="card" data-reveal><span class="num">02</span><h3>SELinux de mínimo privilegio</h3><p>Política SELinux estricta para cada servicio propio: acceso solo a lo que necesita, sin modos permisivos ni permisos amplios.</p><div class="benefit">Valor esperado: mayor protección de datos corporativos y personales, con controles auditables; ningún aislamiento ofrece seguridad absoluta.</div></article>
+          <article class="card" data-reveal><span class="num">03</span><h3>Game Turbo</h3><p>Sesiones de juego con un perfil de rendimiento dedicado que se cierra solo al terminar el juego. Validado en emulador.</p><div class="benefit">Valor esperado: rendimiento sostenido en juegos, sujeto a mediciones en hardware real.</div></article>
+          <article class="card" data-reveal><span class="num">04</span><h3>Motor ACE 0.1</h3><p>Supervisión de hardware, consumo energético, carga de juegos y temperatura. La coordinación avanzada pertenece a versiones futuras.</p><div class="benefit">Valor esperado: capa diferenciadora de optimización adaptable susceptible de licenciamiento propio.</div></article>
+          <article class="card" data-reveal><span class="num">05</span><h3>AHC + Battery Guard</h3><p>Clasificación de las capacidades del dispositivo y estado de protección de la batería integrado en el sistema.</p><div class="benefit">Valor esperado: optimización por segmento de hardware y mejoras de autonomía sujetas a benchmarks.</div></article>
+          <article class="card" data-reveal><span class="num">06</span><h3>Touch &amp; Connect + Quari Store</h3><p>Emparejamiento al tocar dispositivos (base validada en emulador) y una tienda curada con catálogo firmado digitalmente.</p><div class="benefit">Valor esperado: una experiencia reconocible y expansión futura a PC, relojes, auriculares, auto y TV.</div></article>
+        </div>
+        <p class="technical" data-reveal><strong>Estado de validación:</strong> los módulos indicados están validados en emulador. Las mejoras de rendimiento y autonomía se medirán en hardware real a partir de la versión 1.1. Ninguna arquitectura de seguridad garantiza una protección absoluta.</p>
+      </div>
+    </section>
+
+    <section class="section" id="arquitectura" aria-labelledby="arq-titulo">
+      <div class="wrap">
+        <div data-reveal>
+          <div class="kicker">03 / Arquitectura</div>
+          <h2 id="arq-titulo">Cada función, un servicio aislado y sin root.</h2>
+          <p class="intro">La interfaz nunca toca el hardware directamente: cada pedido pasa por un contrato Binder que verifica a quien llama, y cada servicio corre en su propio proceso con una política SELinux mínima.</p>
+        </div>
+        <div class="flow stagger">
+          <article class="card" data-reveal><span class="num">1</span><h3>Apps e interfaz</h3><p>Control Center, Inicio, Quari Store y apps del sistema.</p></article>
+          <article class="card" data-reveal><span class="num">2</span><h3>AIDL / Binder</h3><p>Acceso solo con permiso por firma; cada método verifica a quien llama.</p></article>
+          <article class="card" data-reveal><span class="num">3</span><h3>Servicios Galesh</h3><p>System Control, Game Turbo, Battery Guard: sin root, un proceso por servicio.</p></article>
+          <article class="card" data-reveal><span class="num">4</span><h3>Sistema y hardware</h3><p>Kernel, sensores y recursos del equipo.</p></article>
+        </div>
+        <p class="note" data-reveal><strong>SELinux de mínimo privilegio en todo el recorrido:</strong> cada servicio accede solo a lo que necesita, sin modos permisivos.</p>
+        <div class="steps stagger">
+          <div class="step" data-reveal><span>01</span><b>Auditar</b><p>Revisar el estado real antes de tocar nada.</p></div>
+          <div class="step" data-reveal><span>02</span><b>Modificar</b><p>El cambio mínimo, en el componente correcto.</p></div>
+          <div class="step" data-reveal><span>03</span><b>Compilar</b><p>Imagen completa del sistema, sin errores.</p></div>
+          <div class="step" data-reveal><span>04</span><b>Validar</b><p>Pruebas en ejecución con criterios fijados de antemano.</p></div>
+          <div class="step" data-reveal><span>05</span><b>Congelar</b><p>Versión verificada con sumas de control.</p></div>
+        </div>
       </div>
     </section>
 
     <section class="section" id="roadmap" aria-labelledby="roadmap-titulo">
       <div class="wrap">
-        <div class="kicker">03 / Hoja de ruta</div>
-        <h2 id="roadmap-titulo">De la validación técnica a la oportunidad comercial.</h2>
-        <p class="intro">Hitos de desarrollo y objetivos previstos. Las fechas pueden variar según los resultados de compilación, estabilidad, seguridad y pruebas en dispositivos físicos.</p>
-        <div class="timeline">
-          <article class="milestone"><div class="date">2026 · En curso</div><h3>Base del sistema</h3><p>Servicios propios, seguridad de mínimo privilegio y los primeros 8 módulos validados y congelados en emulador.</p><span class="pill">Base técnica</span></article>
-          <article class="milestone featured"><div class="date">2027 · Previsto</div><h3>Beta abierta y gratuita</h3><p>Imagen para emulador con los módulos principales, el tema Galesh y Quari Store; hardware real a partir de la versión 1.1.</p><span class="pill">Próximo hito</span></article>
-          <article class="milestone"><div class="date">2027</div><h3>Versiones 1.1 y 1.2</h3><p>Nueva pantalla de bloqueo y notificaciones, rediseño de la interfaz y primer dispositivo físico, en evaluación.</p><span class="pill">Planificado</span></article>
-          <article class="milestone"><div class="date">2027 · Etapa posterior</div><h3>Relaciones con fabricantes</h3><p>Exploración de alianzas estratégicas con OEMs emergentes tras demostrar estabilidad, soporte y viabilidad de integración.</p><span class="pill">Objetivo estratégico</span></article>
+        <div data-reveal>
+          <div class="kicker">04 / Hoja de ruta</div>
+          <h2 id="roadmap-titulo">De la validación técnica a la oportunidad comercial.</h2>
+          <p class="intro">Hitos de desarrollo y objetivos previstos. Las fechas pueden variar según los resultados de compilación, estabilidad, seguridad y pruebas en dispositivos físicos.</p>
+        </div>
+        <div class="timeline stagger">
+          <article class="card milestone" data-reveal><div class="date">2026 · En curso</div><h3>Base del sistema</h3><p>Servicios propios, seguridad de mínimo privilegio y los primeros 10 módulos validados y congelados en emulador.</p><span class="pill">Base técnica</span></article>
+          <article class="card milestone featured" data-reveal><div class="date">2027 · Previsto</div><h3>Beta abierta y gratuita</h3><p>Imagen para emulador con los módulos principales, el tema Galesh y Quari Store; hardware real a partir de la versión 1.1.</p><span class="pill">Próximo hito</span></article>
+          <article class="card milestone" data-reveal><div class="date">2027</div><h3>Versiones 1.1 y 1.2</h3><p>Nueva pantalla de bloqueo y notificaciones, rediseño de la interfaz y primer dispositivo físico, en evaluación.</p><span class="pill">Planificado</span></article>
+          <article class="card milestone" data-reveal><div class="date">2027 · Etapa posterior</div><h3>Relaciones con fabricantes</h3><p>Exploración de alianzas estratégicas con OEMs emergentes tras demostrar estabilidad, soporte y viabilidad de integración.</p><span class="pill">Objetivo estratégico</span></article>
         </div>
       </div>
     </section>
 
     <section class="section" id="negocio" aria-labelledby="negocio-titulo">
       <div class="wrap">
-        <div class="kicker">04 / Modelo comercial</div>
-        <h2 id="negocio-titulo">Adopción abierta. Tecnología diferenciadora protegida.</h2>
-        <p class="intro">Un modelo de crecimiento que combina retroalimentación de la comunidad, construcción de ecosistema y posibles acuerdos comerciales, sin depender exclusivamente de descargas de consumidores.</p>
-        <div class="biz-grid">
-          <article class="biz-card"><h3>Adopción comunitaria</h3><p>Beta gratuita para aprendizaje de producto, obtención de retroalimentación y validación en emulador y, desde la versión 1.1, en equipos compatibles. No se presentan cifras de usuarios o tracción todavía.</p></article>
-          <article class="biz-card"><h3>Licencias tecnológicas</h3><p>Motor ACE y determinados módulos propietarios como posibles activos licenciables. Condiciones, alcance y precios sujetos a acuerdos.</p></article>
-          <article class="biz-card"><h3>Canal OEM</h3><p>Posibles acuerdos de integración, optimización o adaptación con fabricantes emergentes, una vez demostrada la preparación técnica.</p></article>
+        <div data-reveal>
+          <div class="kicker">05 / Modelo comercial</div>
+          <h2 id="negocio-titulo">Adopción abierta. Tecnología diferenciadora protegida.</h2>
+          <p class="intro">Un modelo de crecimiento que combina retroalimentación de la comunidad, construcción de ecosistema y posibles acuerdos comerciales, sin depender exclusivamente de descargas de consumidores.</p>
         </div>
-        <div class="licence"><div><div class="bullet-label">Estrategia de propiedad intelectual</div><h3 style="font-size:26px;margin:0 0 10px">ASHB Proprietary</h3><p><strong>Protección de tecnología diferencial:</strong> motores propietarios como ACE y módulos de seguridad que se desarrollen bajo esa licencia, respetando las obligaciones de los componentes de código abierto subyacentes.</p></div><div><p>Los componentes de AOSP conservan sus licencias de código abierto (Apache 2.0 y otras; el kernel Linux, GPL-2.0). Los términos completos están en el <a href="https://github.com/ashb-official/Galesh_OS/blob/main/LICENSE" target="_blank" rel="noopener noreferrer" style="text-decoration:underline">archivo de licencia</a> del repositorio.</p></div></div>
+        <div class="biz-grid stagger">
+          <article class="card" data-reveal><h3>Adopción comunitaria</h3><p>Beta gratuita para aprendizaje de producto, obtención de retroalimentación y validación en emulador y, desde la versión 1.1, en equipos compatibles. No se presentan cifras de usuarios o tracción todavía.</p></article>
+          <article class="card" data-reveal><h3>Licencias tecnológicas</h3><p>Motor ACE y determinados módulos propietarios como posibles activos licenciables. Condiciones, alcance y precios sujetos a acuerdos.</p></article>
+          <article class="card" data-reveal><h3>Canal OEM</h3><p>Posibles acuerdos de integración, optimización o adaptación con fabricantes emergentes, una vez demostrada la preparación técnica.</p></article>
+        </div>
+        <div class="licence" data-reveal>
+          <div><div class="label">Estrategia de propiedad intelectual</div><h3>ASHB Proprietary</h3><p><strong>Protección de tecnología diferencial:</strong> motores propietarios como ACE y módulos de seguridad que se desarrollen bajo esa licencia, respetando las obligaciones de los componentes de código abierto subyacentes.</p></div>
+          <div><p>Los componentes de AOSP conservan sus licencias de código abierto (Apache 2.0 y otras; el kernel Linux, GPL-2.0). Los términos completos están en el <a href="https://github.com/ashb-official/Galesh_OS/blob/main/LICENSE" target="_blank" rel="noopener noreferrer">acuerdo de licencia del repositorio</a>.</p><p>La base AOSP es abierta; los componentes diferenciales de Galesh OS son propietarios y de código cerrado.</p></div>
+        </div>
       </div>
     </section>
 
     <section class="section" id="desarrollo" aria-labelledby="desarrollo-titulo">
-      <div class="wrap vision"><div class="kicker">05 / Estado y visión</div><h2 id="desarrollo-titulo">Desarrollo muy avanzado. Validación antes de escala.</h2><p>Galesh OS se encuentra en una fase avanzada de desarrollo, con integración, compilación y pruebas técnicas en curso. El objetivo es lanzar la beta abierta, en imagen para emulador, en 2027, tras superar las validaciones de seguridad, estabilidad y compatibilidad. Las pruebas sobre hardware real comienzan con la versión 1.1.</p><p>La visión contempla un ecosistema de móviles y, en fases posteriores, otros formatos de dispositivos. Las asociaciones con fabricantes son una oportunidad a explorar, no acuerdos actualmente anunciados.</p><div class="actions" style="justify-content:flex-start"><a class="btn secondary" href="https://github.com/ashb-official/Galesh_OS" target="_blank" rel="noopener noreferrer">Repositorio del proyecto ↗</a><a class="btn secondary" href="#inicio">Volver al inicio ↑</a></div><p class="fine">Desarrollado por <strong>ASHB Technology</strong>. Esta página presenta la estrategia de producto, no una oferta pública de inversión ni resultados financieros auditados.</p></div>
+      <div class="wrap">
+        <div class="vision" data-reveal>
+          <div class="kicker">06 / Estado y visión</div>
+          <h2 id="desarrollo-titulo">Desarrollo muy avanzado. Validación antes de escala.</h2>
+          <p>Galesh OS se encuentra en una fase avanzada de desarrollo, con integración, compilación y pruebas técnicas en curso. El objetivo es lanzar la beta abierta, en imagen para emulador, en 2027, tras superar las validaciones de seguridad, estabilidad y compatibilidad. Las pruebas sobre hardware real comienzan con la versión 1.1.</p>
+          <p>La visión contempla un ecosistema de móviles y, en fases posteriores, otros formatos de dispositivos. Buscamos socios para llevar Galesh OS del emulador al hardware real: demostración en vivo del sistema y código disponible para revisión técnica bajo NDA.</p>
+          <div class="actions">
+            <a href="docs/Galesh_OS_Pitch_Deck_2026.pdf" target="_blank" rel="noopener noreferrer" class="btn-primary">Ver Pitch Deck (PDF)</a>
+            <a class="btn" href="https://github.com/ashb-official/Galesh_OS" target="_blank" rel="noopener noreferrer">Repositorio en GitHub ↗</a>
+          </div>
+        </div>
+      </div>
     </section>
   </main>
-  <footer><div class="wrap foot"><span>© 2026 Gabriel Alexander Sharp Brizuela · Galesh OS</span><span>Beta pública prevista para 2027 · En desarrollo avanzado</span><a href="https://github.com/ashb-official/Galesh_OS" target="_blank" rel="noopener noreferrer">GitHub ↗</a></div></footer>
+
+  <footer><div class="wrap foot"><span>© 2026 Gabriel Alexander Sharp Brizuela · Galesh OS</span><span>Beta pública prevista para 2027 · En desarrollo avanzado</span><span class="foot-links"><a href="https://ashbtechnology.tech/galeshos/" target="_blank" rel="noopener noreferrer">ashbtechnology.tech/galeshos ↗</a><a href="mailto:contact@ashbtechnology.tech">contact@ashbtechnology.tech</a><a class="secondary" href="https://ashb-official.github.io/Galesh_OS/">Documentación y licencias</a></span></div></footer>
+
+  <script>
+    (function(){
+      var r=document.documentElement;
+      if(!('IntersectionObserver' in window)||matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+      r.classList.add('js');
+      var els=document.querySelectorAll('[data-reveal]');
+      var io=new IntersectionObserver(function(entries){
+        entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});
+      },{rootMargin:'0px 0px -8% 0px',threshold:0.12});
+      els.forEach(function(el){io.observe(el);});
+    })();
+  </script>
 </body>
 </html>
