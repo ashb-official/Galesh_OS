@@ -6,7 +6,7 @@
 
 **Sistema operativo móvil basado en Android (AOSP 14), desarrollado en Paraguay.**
 
-[Sitio web](https://ashb-official.github.io/Cygnus_OS/) · [Pitch deck (PDF)](docs/Cygnus_OS_Pitch_Deck_2026.pdf) · [Licencia](LICENSE)
+[Sitio web](https://ashb-official.github.io/Galesh_OS/) · [Pitch deck (PDF)](docs/Cygnus_OS_Pitch_Deck_2026.pdf) · [Licencia](LICENSE)
 
 > **Estado:** en desarrollo activo. Beta pública prevista para **2027** (imagen para emulador).
 > Este repositorio es la presentación pública del proyecto. El código fuente de Galesh OS es propietario y no se publica aquí.
