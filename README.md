@@ -4,11 +4,11 @@
 
 # Galesh OS
 
-**Sistema operativo móvil basado en Android (AOSP 13), desarrollado en Paraguay.**
+**Sistema operativo móvil basado en Android (AOSP 14), desarrollado en Paraguay.**
 
 [Sitio web](https://ashb-official.github.io/Cygnus_OS/) · [Pitch deck (PDF)](docs/Cygnus_OS_Pitch_Deck_2026.pdf) · [Licencia](LICENSE)
 
-> **Estado:** en desarrollo activo. Beta pública prevista para **marzo de 2027** (imagen para emulador).
+> **Estado:** en desarrollo activo. Beta pública prevista para **2027** (imagen para emulador).
 > Este repositorio es la presentación pública del proyecto. El código fuente de Galesh OS es propietario y no se publica aquí.
 
 ---
@@ -24,10 +24,10 @@ Galesh OS es un sistema operativo móvil construido sobre AOSP con una capa prop
 | **Control Center** | Panel central para ver y ajustar el rendimiento, la batería y los modos del sistema. | Validado en emulador |
 | **Game Turbo** | Sesiones de juego con un perfil de rendimiento dedicado que se cierra solo al terminar el juego. | Validado en emulador |
 | **Battery Guard** | Supervisión del estado de protección de la batería, integrada en el sistema. | Validado en emulador |
-| **Quick Panel** | Panel de ajustes rápidos rediseñado. | Validado en emulador |
+| **Quick Panel** | Panel de ajustes rápidos con el tema del sistema; el rediseño llega después de la Beta. | Validado en emulador |
 | **Clasificador de hardware** | Detecta la capacidad del equipo y adapta los perfiles del sistema. | Validado en emulador |
 | **Touch & Connect** | Emparejamiento de dispositivos tocándolos entre sí. Hoy entre teléfonos; PC, relojes, auto y TV en el plan. | Base validada |
-| **Quari Store** | Tienda de aplicaciones curada, con catálogo firmado y compatibilidad opcional con microG. | En desarrollo |
+| **Quari Store** | Tienda de aplicaciones curada, con catálogo firmado; la compatibilidad opcional con microG llega después de la Beta. | En desarrollo |
 | **Asistente de bienvenida** | Configuración inicial del sistema con identidad Galesh. | En desarrollo |
 
 ## Arquitectura (resumen)
@@ -51,7 +51,7 @@ Principios de diseño:
 
 | Versión | Fecha prevista | Contenido |
 |---|---|---|
-| **Beta 1.0** | Marzo 2027 | Imagen para emulador con los componentes principales, tema Galesh y Quari Store. |
+| **Beta 1.0** | 2027 | Imagen para emulador con los componentes principales, tema Galesh y Quari Store. |
 | **1.1** | ~Mayo 2027 | Rediseño de la pantalla de bloqueo y las notificaciones; primer dispositivo físico (en evaluación). |
 | **1.2** | ~Julio 2027 | Rediseño de recientes, volumen y menú de apagado. |
 | **Después** | — | Task Space y Touch & Connect multidispositivo. |
@@ -70,4 +70,4 @@ Galesh OS se basa en el Android Open Source Project (AOSP). Los componentes de A
 
 ### English summary
 
-Galesh OS is a mobile operating system built on AOSP 13, developed in Paraguay, with its own system services, interface and apps focused on performance, battery efficiency and privacy. It is under active development; the public beta (emulator image) is planned for March 2027. The source code is proprietary and available for technical review under NDA.
+Galesh OS is a mobile operating system built on AOSP 14, developed in Paraguay, with its own system services, interface and apps focused on performance, battery efficiency and privacy. It is under active development; the public beta (emulator image) is planned for 2027. The source code is proprietary and available for technical review under NDA.
