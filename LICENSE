@@ -1,12 +1,12 @@
 =======================================================================
-ACUERDO DE LICENCIA Y TÉRMINOS DEL ECOSISTEMA CYGNUS OS
+ACUERDO DE LICENCIA Y TÉRMINOS DEL ECOSISTEMA GALESH OS
 Copyright (C) 2026 Gabriel Alexander Sharp Brizuela.
 Todos los derechos reservados sobre los componentes propietarios.
 =======================================================================
 
 El presente documento establece el modelo de licencias que rige la
 distribución, el uso y la comercialización del sistema operativo
-Cygnus OS y del contenido de este repositorio. Cygnus OS combina
+Galesh OS y del contenido de este repositorio. Galesh OS combina
 componentes de código abierto de terceros con componentes propietarios
 de su autor. Según la capa del sistema y el componente, aplican los
 términos siguientes. En caso de duda sobre un archivo concreto,
@@ -15,7 +15,7 @@ prevalece la cabecera de licencia (SPDX) de ese archivo.
 -----------------------------------------------------------------------
 1. SISTEMA BASE DE CÓDIGO ABIERTO (AOSP y otros proyectos)
 -----------------------------------------------------------------------
-Cygnus OS se basa en el Android Open Source Project (AOSP). Los
+Galesh OS se basa en el Android Open Source Project (AOSP). Los
 componentes de AOSP y de otros proyectos de código abierto incluidos en
 el sistema conservan sus licencias originales, principalmente la
 Apache License 2.0, cuyo texto completo figura en el archivo
@@ -32,13 +32,13 @@ Ajustes) se rigen por la licencia del componente modificado, salvo que
 la cabecera del archivo indique otra cosa.
 
 La lista de licencias de terceros incluidas en cada versión de
-Cygnus OS se entrega junto con el sistema.
+Galesh OS se entrega junto con el sistema.
 
 -----------------------------------------------------------------------
-2. COMPONENTES PROPIETARIOS DE CYGNUS OS
+2. COMPONENTES PROPIETARIOS DE GALESH OS
    (ASHB Proprietary - Código cerrado)
 -----------------------------------------------------------------------
-Los componentes desarrollados por el autor para Cygnus OS son propiedad
+Los componentes desarrollados por el autor para Galesh OS son propiedad
 intelectual exclusiva y secreto comercial de Gabriel Alexander Sharp
 Brizuela, y quedan ESTRICTAMENTE excluidos de cualquier licencia de
 código abierto (incluidas Apache, GPL, MIT y otras). Incluyen, sin
@@ -48,22 +48,22 @@ limitarse a ellos:
     Adaptive Hardware Classifier (AHC), Motor ACE (Advanced Core
     Engine), Touch & Connect y Experience Ultra.
   - Aplicaciones del sistema: Control Center, Quari Store, Welcome y
-    el Asistente de configuración de Cygnus OS.
-  - Módulos en desarrollo o planificados, entre ellos Cygnus Privacy
+    el Asistente de configuración de Galesh OS.
+  - Módulos en desarrollo o planificados, entre ellos Galesh Privacy
     Shield, Task Space, Machine Explorer, OTA Engine, AOT Wrappers,
     ASHB Blackbox y los módulos de microaislamiento y políticas
     Zero-Trust.
 
 El código fuente de estos componentes NO es público. Se distribuyen
 únicamente en forma compilada (binarios, bibliotecas y paquetes de
-aplicación) como parte de las imágenes de Cygnus OS, en la partición
+aplicación) como parte de las imágenes de Galesh OS, en la partición
 /system_ext u otras particiones del sistema.
 
 2.1. Derechos del usuario final (uso no comercial y Beta abierta):
 Se otorga a los usuarios finales una licencia limitada, no exclusiva,
 intransferible, revocable y gratuita para instalar, ejecutar y usar
 estos componentes de forma personal, única y exclusivamente como parte
-integral e inseparable de Cygnus OS en sus dispositivos.
+integral e inseparable de Galesh OS en sus dispositivos.
 
 2.2. Restricciones (uso comercial, B2B y OEM):
 Esta licencia no otorga derechos de explotación comercial. Queda
@@ -74,7 +74,7 @@ prohibido, salvo autorización previa y por escrito del autor:
      componentes, salvo en la medida en que la ley aplicable lo
      permita expresamente sin posibilidad de renuncia.
   c) Preinstalar (OEM), redistribuir, sublicenciar o comercializar
-     Cygnus OS o sus componentes sin un acuerdo formal de licencia y
+     Galesh OS o sus componentes sin un acuerdo formal de licencia y
      regalías firmado por escrito con el autor.
 
 -----------------------------------------------------------------------
@@ -83,13 +83,13 @@ prohibido, salvo autorización previa y por escrito del autor:
 Los controladores de hardware, el firmware, las bibliotecas HAL y los
 "vendor blobs" ubicados habitualmente en las particiones /vendor u
 /odm pertenecen a sus respectivos fabricantes de silicio o de
-dispositivos. Cygnus OS no reclama propiedad sobre ellos; se rigen por
+dispositivos. Galesh OS no reclama propiedad sobre ellos; se rigen por
 los términos de licencia de dichos fabricantes.
 
 -----------------------------------------------------------------------
 4. MARCAS
 -----------------------------------------------------------------------
-"Cygnus OS", "Quari", "ASHB" y sus logotipos son marcas y signos
+"Galesh OS", "Quari", "ASHB" y sus logotipos son marcas y signos
 distintivos de su titular. Ninguna licencia descrita en este documento,
 incluida la Apache License 2.0, concede derecho alguno a usarlos.
 
