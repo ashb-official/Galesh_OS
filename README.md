@@ -52,8 +52,8 @@ Principios de diseño:
 | Versión | Fecha prevista | Contenido |
 |---|---|---|
 | **Beta 1.0** | 2027 | Imagen para emulador con los componentes principales, tema Galesh y Quari Store. |
-| **1.1** | ~Mayo 2027 | Rediseño de la pantalla de bloqueo y las notificaciones; primer dispositivo físico (en evaluación). |
-| **1.2** | ~Julio 2027 | Rediseño de recientes, volumen y menú de apagado. |
+| **1.1** | 2027 | Rediseño de la pantalla de bloqueo y las notificaciones; primer dispositivo físico (en evaluación). |
+| **1.2** | 2027 | Rediseño de recientes, volumen y menú de apagado. |
 | **Después** | — | Task Space y Touch & Connect multidispositivo. |
 
 ## Inversionistas y socios
